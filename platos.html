@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Platos - Pollería</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Sistema de Ventas - Pollería</h1>
+            <p>Gestión completa de inventario y ventas</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-menu">
+                <a href="index.html">Inicio</a>
+                <a href="insumos.html">Registro de Insumos</a>
+                <a href="platos.html">Registro de Platos</a>
+                <a href="ventas.html">Ventas</a>
+                <a href="reportes.html">Reportes</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="form-container">
+            <h2>Registro de Platos</h2>
+            <form>
+                <div class="form-group">
+                    <label for="nombre-plato">Nombre del Plato:</label>
+                    <input type="text" id="nombre-plato" name="nombre-plato" placeholder="Ej: Pollo a la Brasa, Papas Fritas..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="precio">Precio (S/):</label>
+                    <input type="number" id="precio" name="precio" min="0" step="0.01" placeholder="0.00" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="insumos">Insumos y Cantidades:</label>
+                    <textarea id="insumos" name="insumos" rows="4" placeholder="Ej: Pollo: 0.5kg, Papas: 0.3kg, Aceite: 0.1l, Sal: 0.01kg" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion">Descripción (Opcional):</label>
+                    <textarea id="descripcion" name="descripcion" rows="3" placeholder="Descripción breve del plato..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Registrar Plato</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Platos Registrados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Precio (S/)</th>
+                        <th>Insumos</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>P001</td>
+                        <td>Pollo a la Brasa</td>
+                        <td>18.00</td>
+                        <td>Pollo: 0.5kg, Papas: 0.3kg, Aceite: 0.1l</td>
+                        <td style="color: #28a745;">Disponible</td>
+                    </tr>
+                    <tr>
+                        <td>P002</td>
+                        <td>Pollo Broaster</td>
+                        <td>15.00</td>
+                        <td>Pollo: 0.4kg, Harina: 0.1kg, Aceite: 0.15l</td>
+                        <td style="color: #28a745;">Disponible</td>
+                    </tr>
+                    <tr>
+                        <td>P003</td>
+                        <td>Papas Fritas</td>
+                        <td>8.00</td>
+                        <td>Papas: 0.2kg, Aceite: 0.05l, Sal: 0.005kg</td>
+                        <td style="color: #28a745;">Disponible</td>
+                    </tr>
+                    <tr>
+                        <td>P004</td>
+                        <td>Ensalada Mixta</td>
+                        <td>6.00</td>
+                        <td>Lechuga: 0.1kg, Tomate: 0.1kg, Limón: 1 unidad</td>
+                        <td style="color: #ffc107;">Stock Bajo</td>
+                    </tr>
+                    <tr>
+                        <td>P005</td>
+                        <td>Arroz Chaufa</td>
+                        <td>12.00</td>
+                        <td>Arroz: 0.2kg, Pollo: 0.15kg, Aceite: 0.05l</td>
+                        <td style="color: #28a745;">Disponible</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>Proyecto académico - Pollería</p>
+    </footer>
+</body>
+</html>
