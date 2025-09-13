@@ -191,38 +191,6 @@ footer {
     margin-top: 10px;              /* Espacio arriba del botón */
 }
 
-.login-links {
-    text-align: center;             /* Centra los enlaces */
-    margin-top: 15px;              /* Espacio arriba de los enlaces */
-}
-
-.forgot-password {
-    color: #4a7c59;                /* Color verde para el enlace */
-    text-decoration: none;          /* Quita la línea debajo */
-    font-size: 14px;               /* Tamaño de fuente pequeño */
-}
-
-.forgot-password:hover {
-    text-decoration: underline;     /* Subraya al pasar el mouse */
-}
-
-.login-info {
-    background: #f8f9fa;           /* Fondo gris claro */
-    padding: 15px;                 /* Espacio interno */
-    border-radius: 3px;            /* Bordes redondeados */
-    margin-top: 20px;              /* Espacio arriba */
-}
-
-.login-info h3 {
-    color: #2c5530;                /* Color verde para el título */
-    margin-bottom: 10px;           /* Espacio debajo del título */
-    font-size: 16px;               /* Tamaño de fuente */
-}
-
-.login-info p {
-    margin-bottom: 5px;           /* Espacio entre párrafos */
-    font-size: 14px;               /* Tamaño de fuente pequeño */
-}
 
 /* ========================================
    RESPONSIVE - Para dispositivos móviles
