@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Ventas Pollería</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Sistema de Ventas - Pollería</h1>
+            <p>Iniciar Sesión</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-menu">
+                <a href="login.html">Login</a>
+                <a href="index.html">Inicio</a>
+                <a href="insumos.html">Registro de Insumos</a>
+                <a href="platos.html">Registro de Platos</a>
+                <a href="ventas.html">Ventas</a>
+                <a href="reportes.html">Reportes</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="login-container">
+            <h2>Iniciar Sesión</h2>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Ingrese su usuario" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="recordar"> Recordar usuario
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-login">Iniciar Sesión</button>
+                
+                <div class="login-links">
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+            </form>
+            
+            <div class="login-info">
+                <h3>Usuarios de Prueba:</h3>
+                <p><strong>Administrador:</strong> admin / admin123</p>
+                <p><strong>Vendedor:</strong> vendedor / vendedor123</p>
+                <p><strong>Cajero:</strong> cajero / cajero123</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Proyecto académico - Pollería</p>
+    </footer>
+</body>
+</html>
