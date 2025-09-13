@@ -191,6 +191,34 @@ footer {
     margin-top: 10px;              /* Espacio arriba del botón */
 }
 
+.login-note {
+    text-align: center;            /* Centra el texto */
+    margin-top: 20px;              /* Espacio arriba de la nota */
+    padding-top: 15px;             /* Espacio interno arriba */
+    border-top: 1px solid #ddd;    /* Línea separadora arriba */
+}
+
+.login-note p {
+    margin-bottom: 10px;           /* Espacio entre párrafos */
+    color: #666;                   /* Color gris para el texto */
+    font-size: 14px;               /* Tamaño de fuente pequeño */
+}
+
+.btn-secondary {
+    background-color: #6c757d;     /* Color gris para botón secundario */
+    color: white;                  /* Color del texto blanco */
+    padding: 10px 20px;            /* Espacio interno del botón */
+    border: none;                  /* Sin borde */
+    cursor: pointer;               /* Cursor de mano al pasar el mouse */
+    font-size: 14px;               /* Tamaño de fuente del botón */
+    text-decoration: none;         /* Quita la línea debajo del enlace */
+    display: inline-block;         /* Se comporta como bloque pero en línea */
+}
+
+.btn-secondary:hover {
+    background-color: #495057;     /* Cambia a gris más oscuro al pasar el mouse */
+}
+
 
 /* ========================================
    RESPONSIVE - Para dispositivos móviles
