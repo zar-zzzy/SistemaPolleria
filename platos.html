@@ -52,6 +52,17 @@
                     <textarea id="descripcion" name="descripcion" rows="3" placeholder="Descripción breve del plato..."></textarea>
                 </div>
                 
+                <div class="form-group">
+                    <label for="categoria">Categoría:</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Seleccionar categoría</option>
+                        <option value="Pollo">Pollo</option>
+                        <option value="Guarnición">Guarnición</option>
+                        <option value="Ensalada">Ensalada</option>
+                        <option value="Bebida">Bebida</option>
+                    </select>
+                </div>
+                
                 <button type="submit" class="btn">Registrar Plato</button>
             </form>
         </div>
@@ -63,46 +74,64 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
+                        <th>Categoría</th>
                         <th>Precio (S/)</th>
                         <th>Insumos</th>
                         <th>Estado</th>
+                        <th>Actualizar</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>P001</td>
                         <td>Pollo a la Brasa</td>
+                        <td>Pollo</td>
                         <td>18.00</td>
                         <td>Pollo: 0.5kg, Papas: 0.3kg, Aceite: 0.1l</td>
                         <td style="color: #28a745;">Disponible</td>
+                        <td><button class="btn btn-small" disabled>Actualizar</button></td>
+                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
                     </tr>
                     <tr>
                         <td>P002</td>
                         <td>Pollo Broaster</td>
+                        <td>Pollo</td>
                         <td>15.00</td>
                         <td>Pollo: 0.4kg, Harina: 0.1kg, Aceite: 0.15l</td>
                         <td style="color: #28a745;">Disponible</td>
+                        <td><button class="btn btn-small" disabled>Actualizar</button></td>
+                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
                     </tr>
                     <tr>
                         <td>P003</td>
                         <td>Papas Fritas</td>
+                        <td>Guarnición</td>
                         <td>8.00</td>
                         <td>Papas: 0.2kg, Aceite: 0.05l, Sal: 0.005kg</td>
                         <td style="color: #28a745;">Disponible</td>
+                        <td><button class="btn btn-small" disabled>Actualizar</button></td>
+                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
                     </tr>
                     <tr>
                         <td>P004</td>
                         <td>Ensalada Mixta</td>
+                        <td>Ensalada</td>
                         <td>6.00</td>
                         <td>Lechuga: 0.1kg, Tomate: 0.1kg, Limón: 1 unidad</td>
                         <td style="color: #ffc107;">Stock Bajo</td>
+                        <td><button class="btn btn-small" disabled>Actualizar</button></td>
+                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
                     </tr>
                     <tr>
                         <td>P005</td>
-                        <td>Arroz Chaufa</td>
-                        <td>12.00</td>
-                        <td>Arroz: 0.2kg, Pollo: 0.15kg, Aceite: 0.05l</td>
+                        <td>Chicha Morada</td>
+                        <td>Bebida</td>
+                        <td>3.00</td>
+                        <td>Maíz morado: 0.1kg, Piña: 0.05kg, Azúcar: 0.03kg</td>
                         <td style="color: #28a745;">Disponible</td>
+                        <td><button class="btn btn-small" disabled>Actualizar</button></td>
+                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
                     </tr>
                 </tbody>
             </table>
