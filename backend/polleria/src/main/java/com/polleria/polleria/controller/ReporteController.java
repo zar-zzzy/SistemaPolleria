@@ -1,5 +1,6 @@
 package com.polleria.polleria.controller;
 
+import com.polleria.polleria.entity.Venta;
 import com.polleria.polleria.repository.VentaRepository;
 import com.polleria.polleria.repository.DetalleVentaRepository;
 import com.polleria.polleria.repository.InsumoRepository;
@@ -16,30 +17,30 @@ import java.util.Map;
 @RequestMapping("/api/reportes")
 @CrossOrigin(origins = "*")
 public class ReporteController {
-    
+
     @Autowired
     private VentaRepository ventaRepository;
-    
+
     @Autowired
     private DetalleVentaRepository detalleVentaRepository;
-    
+
     @Autowired
     private InsumoRepository insumoRepository;
-    
+
     @GetMapping("/resumen-ventas")
     public Map<String, Object> getResumenVentas() {
         Map<String, Object> resumen = new HashMap<>();
-        
+
         // Ventas de hoy
-        List<Object[]> ventasHoy = ventaRepository.findVentasHoy();
+        List<Venta> ventasHoy = ventaRepository.findVentasHoy();
         resumen.put("ventasHoy", ventasHoy.size());
-        
+
         // Ventas de la semana
         LocalDateTime inicioSemana = LocalDate.now().minusDays(7).atStartOfDay();
         LocalDateTime finSemana = LocalDateTime.now();
-        List<Object[]> ventasSemana = ventaRepository.findVentasPorRango(inicioSemana, finSemana);
+        List<Venta> ventasSemana = ventaRepository.findVentasPorRango(inicioSemana, finSemana);
         resumen.put("ventasSemana", ventasSemana.size());
-        
+
         // Plato más vendido
         List<Object[]> platoMasVendido = detalleVentaRepository.findPlatoMasVendido();
         if (!platoMasVendido.isEmpty()) {
@@ -47,24 +48,24 @@ public class ReporteController {
         } else {
             resumen.put("platoMasVendido", "No hay ventas");
         }
-        
+
         return resumen;
     }
-    
+
     @GetMapping("/stock-insumos")
     public List<Object[]> getStockInsumos() {
         return insumoRepository.findAll().stream()
-            .map(insumo -> new Object[]{
-                insumo.getIdInsumo(),
-                insumo.getNombre(),
-                insumo.getUnidadMedida(),
-                insumo.getCantidad()
-            })
-            .toList();
+                .map(insumo -> new Object[] {
+                        insumo.getIdInsumo(),
+                        insumo.getNombre(),
+                        insumo.getUnidadMedida(),
+                        insumo.getCantidad()
+                })
+                .toList();
     }
-    
+
     @GetMapping("/ventas-por-fecha")
-    public List<Object[]> getVentasPorFecha(@RequestParam String fecha) {
+    public List<Venta> getVentasPorFecha(@RequestParam String fecha) {
         LocalDate fechaConsulta = LocalDate.parse(fecha);
         LocalDateTime inicioDia = fechaConsulta.atStartOfDay();
         LocalDateTime finDia = fechaConsulta.plusDays(1).atStartOfDay();
