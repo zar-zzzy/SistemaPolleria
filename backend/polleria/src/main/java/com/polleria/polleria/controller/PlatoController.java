@@ -26,7 +26,7 @@ public class PlatoController {
     
     @GetMapping("/categoria/{categoriaId}")
     public List<Plato> getPlatosByCategoria(@PathVariable Integer categoriaId) {
-        return platoRepository.findByCategoriaId(categoriaId);
+        return platoRepository.findByCategoriaIdCategoria(categoriaId);
     }
     
     @PostMapping

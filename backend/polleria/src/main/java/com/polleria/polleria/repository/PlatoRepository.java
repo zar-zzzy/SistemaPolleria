@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface PlatoRepository extends JpaRepository<Plato, Integer> {
-    List<Plato> findByCategoriaId(Integer categoriaId);
+    List<Plato> findByCategoriaIdCategoria(Integer idCategoria);
 }

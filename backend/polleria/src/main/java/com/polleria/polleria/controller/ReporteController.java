@@ -31,8 +31,10 @@ public class ReporteController {
     public Map<String, Object> getResumenVentas() {
         Map<String, Object> resumen = new HashMap<>();
 
-        // Ventas de hoy
-        List<Venta> ventasHoy = ventaRepository.findVentasHoy();
+        // ✅ Ventas de hoy — corregido con parámetros inicio y fin
+        LocalDateTime inicio = LocalDate.now().atStartOfDay();
+        LocalDateTime fin = inicio.plusDays(1);
+        List<Venta> ventasHoy = ventaRepository.findVentasHoy(inicio, fin);
         resumen.put("ventasHoy", ventasHoy.size());
 
         // Ventas de la semana
@@ -55,7 +57,7 @@ public class ReporteController {
     @GetMapping("/stock-insumos")
     public List<Object[]> getStockInsumos() {
         return insumoRepository.findAll().stream()
-                .map(insumo -> new Object[] {
+                .map(insumo -> new Object[]{
                         insumo.getIdInsumo(),
                         insumo.getNombre(),
                         insumo.getUnidadMedida(),

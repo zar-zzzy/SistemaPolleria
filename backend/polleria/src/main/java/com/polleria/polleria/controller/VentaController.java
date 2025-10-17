@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/ventas")
@@ -28,9 +27,12 @@ public class VentaController {
         return ventaRepository.findAll();
     }
     
+    // ✅ Actualizado para pasar los parámetros correctamente
     @GetMapping("/hoy")
     public List<Venta> getVentasHoy() {
-        return ventaRepository.findVentasHoy();
+        LocalDateTime inicio = LocalDate.now().atStartOfDay();
+        LocalDateTime fin = inicio.plusDays(1);
+        return ventaRepository.findVentasHoy(inicio, fin);
     }
     
     @GetMapping("/semana")
