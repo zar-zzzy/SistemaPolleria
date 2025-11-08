@@ -1,5 +1,6 @@
 package com.polleria.polleria.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,7 @@ public class DetalleVenta {
 
     @ManyToOne
     @JoinColumn(name = "idVenta") // 🔹 Ahora coincide con la tabla "VENTAS"
+    @JsonIgnoreProperties("detalles")
     private Venta venta;
 
     @ManyToOne

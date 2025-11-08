@@ -3,6 +3,7 @@ package com.polleria.polleria.controller;
 import com.polleria.polleria.entity.Insumo;
 import com.polleria.polleria.service.InsumoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +38,13 @@ public class InsumoController {
     }
 
     @DeleteMapping("/{id}")
-    public void eliminarInsumo(@PathVariable Long id) {
-        insumoService.eliminarInsumo(id);
+    public ResponseEntity<?> eliminarInsumo(@PathVariable Long id) {
+        try {
+            insumoService.eliminarInsumo(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(409)
+                    .body("No se puede eliminar el insumo porque está siendo usado en platos");
+        }
     }
 }

@@ -38,8 +38,13 @@ public class PlatoController {
 
     // Eliminar un plato
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
-        platoService.eliminar(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> eliminar(@PathVariable Integer id) {
+        try {
+            platoService.eliminar(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(409)
+                    .body("No se puede eliminar el plato porque está siendo usado en ventas");
+        }
     }
 }

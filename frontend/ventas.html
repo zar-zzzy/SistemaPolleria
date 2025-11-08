@@ -18,7 +18,7 @@
         <div class="nav-container">
             <div class="nav-menu">
                 <a href="index.html">Inicio</a>
-                <a href="catalogo.html">Registro de Insumos</a>
+                <a href="insumos.html">Registro de Insumos</a>
                 <a href="platos.html">Registro de Platos</a>
                 <a href="ventas.html">Ventas</a>
                 <a href="reportes.html">Reportes</a>
@@ -152,20 +152,8 @@
 
     <footer>
         <p>Proyecto académico - Pollería</p>
-        <script>
-        function calcularTotal() {
-            var selectPlato = document.getElementById('plato');
-            var cantidad = parseFloat(document.getElementById('cantidad').value) || 0;
-            var precioUnitario = 0;
-            
-            if (selectPlato.selectedIndex > 0) {
-                precioUnitario = parseFloat(selectPlato.options[selectPlato.selectedIndex].getAttribute('data-precio')) || 0;
-            }
-            
-            var total = precioUnitario * cantidad;
-            document.getElementById('total').value = 'S/ ' + total.toFixed(2);
-        }
-        </script>
     </footer>
+    <script src="js/config.js"></script>
+    <script src="js/ventas.js"></script>
 </body>
 </html>
