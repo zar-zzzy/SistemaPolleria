@@ -1,0 +1,259 @@
+/* ========================================
+   RESET BÁSICO - Configuración inicial
+   ======================================== */
+* {
+    margin: 0;                    /* Quita márgenes por defecto de todos los elementos */
+    padding: 0;                   /* Quita padding por defecto de todos los elementos */
+    box-sizing: border-box;       /* Incluye el borde en el ancho total del elemento */
+}
+
+body {
+    font-family: Arial, sans-serif;  /* Define la fuente principal */
+    background-color: #f5f5f5;       /* Color de fondo de la página */
+    color: #333;                     /* Color del texto principal */
+}
+
+/* ========================================
+   HEADER - Encabezado principal
+   ======================================== */
+header {
+    background-color: #2c5530;       /* Color de fondo verde oscuro */
+    color: white;                    /* Color del texto blanco */
+    padding: 20px;                   /* Espacio interno de 20px en todos los lados */
+    text-align: center;              /* Centra el texto horizontalmente */
+}
+
+header h1 {
+    font-size: 24px;                 /* Tamaño de fuente del título principal */
+    margin-bottom: 5px;              /* Espacio debajo del título */
+}
+
+/* ========================================
+   NAVEGACIÓN - Menú de navegación
+   ======================================== */
+nav {
+    background-color: #34495e;       /* Color de fondo del menú */
+    padding: 15px;                   /* Espacio interno del menú */
+}
+
+.nav-menu {
+    text-align: center;              /* Centra los botones del menú */
+}
+
+.nav-menu a {
+    color: white;                    /* Color del texto de los enlaces */
+    text-decoration: none;           /* Quita la línea debajo de los enlaces */
+    padding: 10px 20px;              /* Espacio interno: 10px arriba/abajo, 20px izquierda/derecha */
+    background-color: #2c3e50;       /* Color de fondo de los botones */
+    margin: 5px;                     /* Espacio entre botones */
+    display: inline-block;           /* Los botones se ponen en línea pero se comportan como bloques */
+    border-radius: 3px;              /* Bordes redondeados de 3px */
+}
+
+.nav-menu a:hover {
+    background-color: #4a7c59;       /* Cambia el color de fondo al pasar el mouse */
+}
+
+/* ========================================
+   CONTENIDO PRINCIPAL - Área de contenido
+   ======================================== */
+main {
+    max-width: 1000px;               /* Ancho máximo del contenido */
+    margin: 20px auto;               /* 20px arriba/abajo, centrado horizontalmente */
+    padding: 0 20px;                 /* 0 arriba/abajo, 20px izquierda/derecha */
+}
+
+/* ========================================
+   FORMULARIOS - Estilos para formularios
+   ======================================== */
+.form-container {
+    background: white;               /* Fondo blanco del contenedor */
+    padding: 20px;                   /* Espacio interno del contenedor */
+    margin-bottom: 20px;             /* Espacio debajo del contenedor */
+    border: 1px solid #ddd;          /* Borde gris de 1px */
+}
+
+.form-container h2 {
+    color: #2c5530;                  /* Color verde para los títulos */
+    margin-bottom: 15px;             /* Espacio debajo del título */
+    font-size: 20px;                 /* Tamaño de fuente del título */
+}
+
+.form-group {
+    margin-bottom: 15px;             /* Espacio entre cada grupo de formulario */
+}
+
+.form-group label {
+    display: block;                  /* La etiqueta ocupa toda la línea */
+    margin-bottom: 5px;              /* Espacio debajo de la etiqueta */
+    font-weight: bold;               /* Texto en negrita */
+    color: #2c5530;                  /* Color verde para las etiquetas */
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;                     /* Ancho completo del campo */
+    padding: 8px;                    /* Espacio interno del campo */
+    border: 1px solid #ccc;          /* Borde gris de 1px */
+    font-size: 14px;                 /* Tamaño de fuente del campo */
+}
+
+/* ========================================
+   BOTONES - Estilos para botones
+   ======================================== */
+.btn {
+    background-color: #4a7c59;       /* Color de fondo verde del botón */
+    color: white;                    /* Color del texto blanco */
+    padding: 10px 20px;              /* Espacio interno del botón */
+    border: none;                    /* Sin borde */
+    cursor: pointer;                 /* Cursor de mano al pasar el mouse */
+    font-size: 14px;                 /* Tamaño de fuente del botón */
+}
+
+.btn:hover {
+    background-color: #2c5530;       /* Cambia a verde más oscuro al pasar el mouse */
+}
+
+.btn-small {
+  padding: 4px 10px; /* Botón más pequeño */
+  font-size: 12px;   /* Letra pequeña */
+  margin: 0 2px;
+}
+
+/* ========================================
+   TABLAS - Estilos para tablas
+   ======================================== */
+.table-container {
+    background: white;               /* Fondo blanco del contenedor */
+    padding: 20px;                   /* Espacio interno del contenedor */
+    margin-bottom: 20px;             /* Espacio debajo del contenedor */
+    border: 1px solid #ddd;          /* Borde gris de 1px */
+}
+
+.table-container h2 {
+    color: #2c5530;                  /* Color verde para los títulos */
+    margin-bottom: 15px;             /* Espacio debajo del título */
+    font-size: 20px;                 /* Tamaño de fuente del título */
+}
+
+table {
+    width: 100%;                     /* Ancho completo de la tabla */
+    border-collapse: collapse;       /* Une los bordes de las celdas */
+    margin-top: 10px;                /* Espacio arriba de la tabla */
+}
+
+th, td {
+    padding: 10px;                   /* Espacio interno de las celdas */
+    text-align: left;                /* Alineación del texto a la izquierda */
+    border-bottom: 1px solid #ddd;   /* Borde inferior de las celdas */
+}
+
+th {
+    background-color: #f8f9fa;       /* Fondo gris claro para encabezados */
+    font-weight: bold;               /* Texto en negrita para encabezados */
+    color: #2c5530;                  /* Color verde para encabezados */
+}
+
+tr:hover {
+    background-color: #f8f9fa;       /* Cambia el fondo al pasar el mouse sobre la fila */
+}
+
+/* ========================================
+   FOOTER - Pie de página
+   ======================================== */
+footer {
+    background-color: #2c3e50;       /* Color de fondo del footer */
+    color: white;                    /* Color del texto blanco */
+    text-align: center;              /* Centra el texto */
+    padding: 20px;                   /* Espacio interno del footer */
+    margin-top: 30px;                /* Espacio arriba del footer */
+}
+
+/* ========================================
+   LOGIN - Estilos para página de login
+   ======================================== */
+.login-container {
+    max-width: 400px;               /* Ancho máximo del contenedor de login */
+    margin: 50px auto;             /* Centrado vertical y horizontal */
+    background: white;              /* Fondo blanco */
+    padding: 30px;                 /* Espacio interno */
+    border: 1px solid #ddd;        /* Borde gris */
+    border-radius: 5px;            /* Bordes redondeados */
+}
+
+.login-form {
+    margin-bottom: 20px;           /* Espacio debajo del formulario */
+}
+
+.login-form h2 {
+    text-align: center;            /* Centra el título */
+    color: #2c5530;                 /* Color verde */
+    margin-bottom: 20px;            /* Espacio debajo del título */
+}
+
+.btn-login {
+    width: 100%;                   /* Ancho completo del botón */
+    margin-top: 10px;              /* Espacio arriba del botón */
+}
+
+.login-note {
+    text-align: center;            /* Centra el texto */
+    margin-top: 20px;              /* Espacio arriba de la nota */
+    padding-top: 15px;             /* Espacio interno arriba */
+    border-top: 1px solid #ddd;    /* Línea separadora arriba */
+}
+
+.login-note p {
+    margin-bottom: 10px;           /* Espacio entre párrafos */
+    color: #666;                   /* Color gris para el texto */
+    font-size: 14px;               /* Tamaño de fuente pequeño */
+}
+
+.btn-secondary {
+    background-color: #6c757d;     /* Color gris para botón secundario */
+    color: white;                  /* Color del texto blanco */
+    padding: 10px 20px;            /* Espacio interno del botón */
+    border: none;                  /* Sin borde */
+    cursor: pointer;               /* Cursor de mano al pasar el mouse */
+    font-size: 14px;               /* Tamaño de fuente del botón */
+    text-decoration: none;         /* Quita la línea debajo del enlace */
+    display: inline-block;         /* Se comporta como bloque pero en línea */
+}
+
+.btn-secondary:hover {
+    background-color: #495057;     /* Cambia a gris más oscuro al pasar el mouse */
+}
+
+
+/* ========================================
+   RESPONSIVE - Para dispositivos móviles
+   ======================================== */
+@media (max-width: 768px) {          /* Aplica estos estilos solo en pantallas menores a 768px */
+    .nav-menu a {
+        display: block;              /* Los botones se ponen uno debajo del otro */
+        margin: 5px 0;               /* Espacio arriba y abajo entre botones */
+    }
+    
+    main {
+        padding: 0 10px;             /* Menos espacio en los lados en móvil */
+    }
+    
+    .form-container,
+    .table-container {
+        padding: 15px;               /* Menos espacio interno en móvil */
+    }
+    
+    .login-container {
+        margin: 20px auto;          /* Menos espacio arriba en móvil */
+        padding: 20px;               /* Menos espacio interno en móvil */
+    }
+    
+    table {
+        font-size: 12px;             /* Texto más pequeño en las tablas para móvil */
+    }
+    
+    th, td {
+        padding: 5px;                /* Menos espacio en las celdas para móvil */
+    }
+}
