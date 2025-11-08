@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Platos - Pollería</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Sistema de Ventas - Pollería</h1>
+            <p>Gestión completa de inventario y ventas</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-menu">
+                <a href="index.html">Inicio</a>
+                <a href="insumos.html">Registro de Insumos</a>
+                <a href="platos.html">Registro de Platos</a>
+                <a href="ventas.html">Ventas</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="publicidad.html">Publicidad</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="form-container">
+            <h2>Registro de Platos</h2>
+            <form id="form-plato">
+                <div class="form-group">
+                    <label for="nombre-plato">Nombre del Plato:</label>
+                    <input type="text" id="nombre-plato" name="nombre-plato" placeholder="Ej: Pollo a la Brasa, Papas Fritas..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoria">Categoría:</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Seleccionar categoría</option>
+                        <option value="Pollo">Pollo</option>
+                        <option value="Guarnición">Guarnición</option>
+                        <option value="Ensalada">Ensalada</option>
+                        <option value="Bebida">Bebida</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-top: -10px;">
+                    <label for="nueva-categoria" style="font-size:14px;">¿No encuentras la categoría? Agrégala aquí:</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" id="nueva-categoria" name="nueva-categoria" placeholder="Nueva categoría..." style="flex:2;">
+                        <button type="button" class="btn btn-small" onclick="agregarCategoria()">Agregar categoría</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="precio">Precio de Venta (S/):</label>
+                    <input type="number" id="precio" name="precio" min="0" step="0.01" placeholder="0.00" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Insumos necesarios para este plato:</label>
+                    <div id="lista-insumos">
+                        <div style="display: flex; gap: 1rem; margin-bottom: 8px;">
+                            <select name="insumo1" style="flex:2;">
+                                <option value="">Seleccionar Insumo</option>
+                                <option value="Pollo">Pollo</option>
+                                <option value="Papas">Papas</option>
+                                <option value="Aceite">Aceite</option>
+                                <option value="Sal">Sal</option>
+                                <option value="Limón">Limón</option>
+                            </select>
+                            <input type="number" name="cant1" step="0.01" min="0" placeholder="Cantidad" style="flex:1;">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-small" onclick="agregarInsumoPlato()">+ Agregar otro insumo</button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion">Descripción (Opcional):</label>
+                    <textarea id="descripcion" name="descripcion" rows="3" placeholder="Descripción breve del plato..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Registrar Plato</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Platos Registrados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio (S/)</th>
+                        <th>Insumos</th>
+                        <th>Actualizar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>P001</td>
+                        <td>Pollo a la Brasa</td>
+                        <td>Pollo</td>
+                        <td>18.00</td>
+                        <td>Pollo: 0.5kg, Papas: 0.3kg, Aceite: 0.1l</td>
+                        <td><button class="btn btn-small" onclick="mostrarActualizarPlato('P001','Pollo a la Brasa','Pollo','18.00')">Actualizar</button></td>
+                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
+                    </tr>
+                    <tr>
+                        <td>P002</td>
+                        <td>Pollo Broaster</td>
+                        <td>Pollo</td>
+                        <td>15.00</td>
+                        <td>Pollo: 0.4kg, Aceite: 0.15l</td>
+                        <td><button class="btn btn-small" onclick="mostrarActualizarPlato('P002','Pollo Broaster','Pollo','15.00')">Actualizar</button></td>
+                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
+                    </tr>
+                    <tr>
+                        <td>P003</td>
+                        <td>Papas Fritas</td>
+                        <td>Guarnición</td>
+                        <td>8.00</td>
+                        <td>Papas: 0.2kg, Aceite: 0.05l, Sal: 0.005kg</td>
+                        <td><button class="btn btn-small" onclick="mostrarActualizarPlato('P003','Papas Fritas','Guarnición','8.00')">Actualizar</button></td>
+                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
+                    </tr>
+                    <tr>
+                        <td>P004</td>
+                        <td>Ensalada Mixta</td>
+                        <td>Ensalada</td>
+                        <td>6.00</td>
+                        <td>Lechuga: 0.1kg, Tomate: 0.1kg, Limón: 1 unidad</td>
+                        <td><button class="btn btn-small" onclick="mostrarActualizarPlato('P004','Ensalada Mixta','Ensalada','6.00')">Actualizar</button></td>
+                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
+                    </tr>
+                    <tr>
+                        <td>P005</td>
+                        <td>Chicha Morada</td>
+                        <td>Bebida</td>
+                        <td>3.00</td>
+                        <td>Maíz morado: 0.1kg, Azúcar: 0.03kg</td>
+                        <td><button class="btn btn-small" onclick="mostrarActualizarPlato('P005','Chicha Morada','Bebida','3.00')">Actualizar</button></td>
+                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>Proyecto académico - Pollería</p>
+        <div id="modal-actualizar-plato" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:1000; align-items:center; justify-content:center; overflow-y:auto;">
+            <div style="background:#fff; padding:1.5rem 2rem; border-radius:8px; min-width:300px; max-width:600px; margin:2rem auto; box-shadow:0 2px 8px #0002;">
+                <h3 style="margin-top:0;">Actualizar Plato</h3>
+                <form onsubmit="guardarActualizacionPlato(event)">
+                    <input type="hidden" id="upd-id-plato">
+                    <div class="form-group">
+                        <label for="upd-nombre-plato">Nombre:</label>
+                        <input type="text" id="upd-nombre-plato" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="upd-categoria-plato">Categoría:</label>
+                        <select id="upd-categoria-plato" required>
+                            <option value="">Seleccionar categoría</option>
+                            <option value="Pollo">Pollo</option>
+                            <option value="Guarnición">Guarnición</option>
+                            <option value="Ensalada">Ensalada</option>
+                            <option value="Bebida">Bebida</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="upd-precio-plato">Precio (S/):</label>
+                        <input type="number" id="upd-precio-plato" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Insumos del plato:</label>
+                        <div id="upd-lista-insumos">
+                            <div style="display: flex; gap: 1rem; margin-bottom: 8px;">
+                                <select name="upd-insumo1" style="flex:2;">
+                                    <option value="">Seleccionar Insumo</option>
+                                    <option value="Pollo">Pollo</option>
+                                    <option value="Papas">Papas</option>
+                                    <option value="Aceite">Aceite</option>
+                                    <option value="Sal">Sal</option>
+                                    <option value="Limón">Limón</option>
+                                </select>
+                                <input type="number" name="upd-cant1" step="0.01" min="0" placeholder="Cantidad" style="flex:1;">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-small" onclick="agregarInsumoActualizar()">+ Agregar otro insumo</button>
+                    </div>
+                    <div style="text-align:right; margin-top:1rem;">
+                        <button type="button" class="btn btn-small" onclick="cerrarActualizarPlato()">Cancelar</button>
+                        <button type="submit" class="btn btn-small">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+        // Script simple para agregar categorías al select
+        function agregarCategoria() {
+            var nuevaCat = document.getElementById('nueva-categoria').value.trim();
+            var selectCat = document.getElementById('categoria');
+            if (nuevaCat.length > 0) {
+                // Verifica si ya existe
+                var existe = false;
+                for (var i = 0; i < selectCat.options.length; i++) {
+                    if (selectCat.options[i].value.toLowerCase() === nuevaCat.toLowerCase()) {
+                        existe = true;
+                        break;
+                    }
+                }
+                if (!existe) {
+                    var option = document.createElement('option');
+                    option.value = nuevaCat;
+                    option.text = nuevaCat;
+                    selectCat.appendChild(option);
+                    selectCat.value = nuevaCat;
+                    document.getElementById('nueva-categoria').value = '';
+                } else {
+                    alert('La categoría ya existe.');
+                }
+            }
+        }
+        // Función para agregar más insumos dinámicamente
+        var contadorInsumos = 1;
+        function agregarInsumoPlato() {
+            contadorInsumos++;
+            var listaInsumos = document.getElementById('lista-insumos');
+            var nuevoInsumo = document.createElement('div');
+            nuevoInsumo.style.display = 'flex';
+            nuevoInsumo.style.gap = '1rem';
+            nuevoInsumo.style.marginBottom = '8px';
+            nuevoInsumo.innerHTML = `
+                <select name="insumo${contadorInsumos}" style="flex:2;">
+                    <option value="">Seleccionar Insumo</option>
+                    <option value="Pollo">Pollo</option>
+                    <option value="Papas">Papas</option>
+                    <option value="Aceite">Aceite</option>
+                    <option value="Sal">Sal</option>
+                    <option value="Limón">Limón</option>
+                </select>
+                <input type="number" name="cant${contadorInsumos}" step="0.01" min="0" placeholder="Cantidad" style="flex:1;">
+            `;
+            listaInsumos.appendChild(nuevoInsumo);
+        }
+        // Función para agregar insumos en el modal de actualización
+        var contadorInsumosActualizar = 1;
+        function agregarInsumoActualizar() {
+            contadorInsumosActualizar++;
+            var listaInsumos = document.getElementById('upd-lista-insumos');
+            var nuevoInsumo = document.createElement('div');
+            nuevoInsumo.style.display = 'flex';
+            nuevoInsumo.style.gap = '1rem';
+            nuevoInsumo.style.marginBottom = '8px';
+            nuevoInsumo.innerHTML = `
+                <select name="upd-insumo${contadorInsumosActualizar}" style="flex:2;">
+                    <option value="">Seleccionar Insumo</option>
+                    <option value="Pollo">Pollo</option>
+                    <option value="Papas">Papas</option>
+                    <option value="Aceite">Aceite</option>
+                    <option value="Sal">Sal</option>
+                    <option value="Limón">Limón</option>
+                </select>
+                <input type="number" name="upd-cant${contadorInsumosActualizar}" step="0.01" min="0" placeholder="Cantidad" style="flex:1;">
+            `;
+            listaInsumos.appendChild(nuevoInsumo);
+        }
+        // Modal actualizar plato
+        function mostrarActualizarPlato(id, nombre, categoria, precio) {
+            document.getElementById('modal-actualizar-plato').style.display = 'flex';
+            document.getElementById('upd-id-plato').value = id;
+            document.getElementById('upd-nombre-plato').value = nombre;
+            document.getElementById('upd-categoria-plato').value = categoria;
+            document.getElementById('upd-precio-plato').value = precio;
+            // Resetear la lista de insumos del modal
+            contadorInsumosActualizar = 1;
+            document.getElementById('upd-lista-insumos').innerHTML = `
+                <div style="display: flex; gap: 1rem; margin-bottom: 8px;">
+                    <select name="upd-insumo1" style="flex:2;">
+                        <option value="">Seleccionar Insumo</option>
+                        <option value="Pollo">Pollo</option>
+                        <option value="Papas">Papas</option>
+                        <option value="Aceite">Aceite</option>
+                        <option value="Sal">Sal</option>
+                        <option value="Limón">Limón</option>
+                    </select>
+                    <input type="number" name="upd-cant1" step="0.01" min="0" placeholder="Cantidad" style="flex:1;">
+                </div>
+            `;
+        }
+        function cerrarActualizarPlato() {
+            document.getElementById('modal-actualizar-plato').style.display = 'none';
+        }
+        function guardarActualizacionPlato(e) {
+            e.preventDefault();
+            // Aquí iría la lógica para guardar los cambios (por ahora solo cierra el modal)
+            cerrarActualizarPlato();
+            alert('Plato actualizado (solo visual, sin conexión a base de datos)');
+        }
+        </script>
+    </footer>
+    <script src="js/config.js"></script>
+    <script src="js/platos.js"></script>
+</body>
+</html>
