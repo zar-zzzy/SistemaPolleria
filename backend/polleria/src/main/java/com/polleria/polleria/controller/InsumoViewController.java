@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * Controlador MVC para la gestión de insumos.
- * Maneja las peticiones HTTP y retorna vistas Thymeleaf.
+ * Maneja las peticiones HTTP y retorna vistas JSP.
  */
 @Controller
 @RequestMapping("/insumos")

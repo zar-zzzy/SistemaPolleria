@@ -1,0 +1,121 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Ventas - Pollería</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <h1>Sistema de Ventas - Pollería</h1>
+        <p>Gestión completa de inventario y ventas</p>
+    </div>
+</header>
+
+<nav>
+    <div class="nav-container">
+        <div class="nav-menu">
+            <a href="/">Inicio</a>
+            <a href="/insumos">Registro de Insumos</a>
+            <a href="/platos">Registro de Platos</a>
+            <a href="/ventas">Ventas</a>
+            <a href="/reportes">Reportes</a>
+            <a href="/contacto">Contacto</a>
+            <a href="/publicidad">Publicidad</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="form-container">
+        <h2>Registro de Ventas</h2>
+        <form id="form-venta">
+            <div class="form-group">
+                <label for="cliente">Nombre del Cliente (Opcional):</label>
+                <input type="text" id="cliente" name="cliente" placeholder="Nombre completo del cliente">
+            </div>
+
+            <div class="form-group">
+                <label for="plato">Seleccionar Plato:</label>
+                <select id="plato" name="plato" required onchange="calcularTotal()">
+                    <option value="">Seleccionar plato</option>
+                    <option value="P001" data-precio="18.00">Pollo a la Brasa - S/ 18.00</option>
+                    <option value="P002" data-precio="15.00">Pollo Broaster - S/ 15.00</option>
+                    <option value="P003" data-precio="8.00">Papas Fritas - S/ 8.00</option>
+                    <option value="P004" data-precio="6.00">Ensalada Mixta - S/ 6.00</option>
+                    <option value="P005" data-precio="3.00">Chicha Morada - S/ 3.00</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" min="1" value="1" required onchange="calcularTotal()">
+            </div>
+
+            <div class="form-group">
+                <label for="total">Total a Pagar:</label>
+                <input type="text" id="total" name="total" placeholder="S/ 0.00" readonly style="background:#f5f5f5; font-weight:bold;">
+            </div>
+
+            <div class="form-group">
+                <label for="metodo-pago">Método de Pago:</label>
+                <select id="metodo-pago" name="metodo-pago" required>
+                    <option value="">Seleccionar método</option>
+                    <option value="efectivo">Efectivo</option>
+                    <option value="tarjeta">Tarjeta</option>
+                    <option value="yape">Yape</option>
+                    <option value="plin">Plin</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="observaciones">Observaciones (Opcional):</label>
+                <textarea id="observaciones" name="observaciones" rows="2" placeholder="Notas adicionales sobre la venta..."></textarea>
+            </div>
+
+            <button type="submit" class="btn">Registrar Venta</button>
+        </form>
+    </div>
+
+    <div class="table-container">
+        <h2>Historial de Ventas</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID Venta</th>
+                <th>Cliente</th>
+                <th>Plato</th>
+                <th>Cantidad</th>
+                <th>Precio Unit.</th>
+                <th>Total</th>
+                <th>Pago</th>
+                <th>Fecha</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>V001</td>
+                <td>Juan Pérez</td>
+                <td>Pollo a la Brasa</td>
+                <td>2</td>
+                <td>S/ 18.00</td>
+                <td>S/ 36.00</td>
+                <td>Efectivo</td>
+                <td>2025-10-17</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <p>Proyecto académico - Pollería</p>
+</footer>
+<script src="/js/config.js"></script>
+<script src="/js/ventas.js"></script>
+</body>
+</html>
