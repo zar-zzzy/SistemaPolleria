@@ -2,8 +2,12 @@ package com.polleria.polleria.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * Entidad que representa un insumo en la base de datos.
+ * Se mapea a la tabla INSUMOS en H2.
+ */
 @Entity
-@Table(name = "INSUMOS")
+@Table(name = "insumo")
 public class Insumo {
 
     @Id
@@ -14,9 +18,9 @@ public class Insumo {
 
     private int stock;
 
-    private String unidadMedida; // ✅ Campo agregado
+    private String unidadMedida;
 
-    // 🔹 Getters y setters
+    // Getters y Setters
 
     public Long getId() {
         return id;

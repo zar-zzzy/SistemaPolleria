@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio para la lógica de negocio de insumos.
+ * Actúa como intermediario entre el Controller y el Repository.
+ */
 @Service
 public class InsumoService {
 

@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!-- 
+    Vista Thymeleaf para gestión de insumos
+    Renderizada por: InsumoViewController.java
+    Sintaxis: th:* son atributos de Thymeleaf procesados en el servidor
+-->
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
@@ -90,6 +95,39 @@
                                class="btn btn-small"
                                onclick="return confirm('¿Está seguro de eliminar este insumo?');">Eliminar</a>
                         </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tabla de Registro de Movimientos -->
+        <div class="table-container" style="margin-top: 40px;">
+            <h2>Registro de Movimientos (Últimos 10)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Insumo</th>
+                        <th>Tipo</th>
+                        <th>Cantidad</th>
+                        <th>Motivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(movimientos)}">
+                        <td colspan="5" style="text-align: center;">No hay movimientos registrados</td>
+                    </tr>
+                    <tr th:each="mov : ${movimientos}">
+                        <td th:text="${#temporals.format(mov.fecha, 'dd/MM/yyyy HH:mm')}">01/01/2025 10:00</td>
+                        <td th:text="${mov.insumo.nombre}">Pollo</td>
+                        <td>
+                            <span th:text="${mov.tipo}" 
+                                  th:style="${mov.tipo.name() == 'ENTRADA'} ? 'color: green; font-weight: bold;' : 'color: red; font-weight: bold;'">
+                                ENTRADA
+                            </span>
+                        </td>
+                        <td th:text="${mov.cantidad}">10.5</td>
+                        <td th:text="${mov.motivo}">Compra semanal</td>
                     </tr>
                 </tbody>
             </table>

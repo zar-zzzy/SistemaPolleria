@@ -14,16 +14,26 @@
         </div>
     </header>
 
-    <nav>
+    <nav xmlns:th="http://www.thymeleaf.org">
         <div class="nav-container">
             <div class="nav-menu">
-                <a href="index.html">Inicio</a>
-                <a href="insumos.html">Registro de Insumos</a>
-                <a href="platos.html">Registro de Platos</a>
-                <a href="ventas.html">Ventas</a>
-                <a href="reportes.html">Reportes</a>
-                <a href="contacto.html">Contacto</a>
-                <a href="publicidad.html">Publicidad</a>
+                <!-- Menú TRABAJADOR -->
+                <div th:if="${session.rol == 'TRABAJADOR'}">
+                    <a href="/">Inicio</a>
+                    <a href="/insumos">Registro de Insumos</a>
+                    <a href="/platos">Registro de Platos</a>
+                    <a href="/ventas">Ventas</a>
+                    <a href="/reportes-dia">Reportes</a>
+                    <a href="/contacto">Contacto</a>
+                    <a href="/anuncios">Publicidad</a>
+                </div>
+
+                <!-- Menú ADMIN -->
+                <div th:if="${session.rol == 'ADMIN'}">
+                    <a href="/admin/usuarios">Gestionar usuarios</a>
+                    <a href="/publicidad">Gestionar anuncios</a>
+                    <a href="/reportes">Ver métricas</a>
+                </div>
             </div>
         </div>
     </nav>

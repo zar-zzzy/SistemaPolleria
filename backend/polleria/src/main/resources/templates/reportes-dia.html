@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes del Día - Pollería</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <h1>Sistema de Ventas - Pollería</h1>
+        <p>Resumen de ventas del día</p>
+    </div>
+</header>
+
+<nav>
+    <div class="nav-container">
+        <div class="nav-menu">
+            <!-- Menú TRABAJADOR -->
+            <div th:if="${session.rol == 'TRABAJADOR'}">
+                <a href="/">Inicio</a>
+                <a href="/insumos">Registro de Insumos</a>
+                <a href="/platos">Registro de Platos</a>
+                <a href="/ventas">Ventas</a>
+                <a href="/reportes-dia">Reportes</a>
+                <a href="/contacto">Contacto</a>
+                <a href="/anuncios">Publicidad</a>
+            </div>
+
+            <!-- Menú ADMIN -->
+            <div th:if="${session.rol == 'ADMIN'}">
+                <a href="/admin/usuarios">Gestionar usuarios</a>
+                <a href="/publicidad">Gestionar anuncios</a>
+                <a href="/reportes">Ver métricas</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="form-container">
+        <h2>Resumen de Ventas - Hoy</h2>
+        <p>Como trabajador, aquí puedes ver únicamente las métricas del día actual.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+            <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 8px; text-align: center; border-left: 4px solid #28a745;">
+                <h3 style="color: #28a745; margin-bottom: 0.5rem;">Total de Ventas (Hoy)</h3>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #2c5530;">S/ 36.00</p>
+                <p style="color: #666; font-size: 0.9rem;">2 pedidos</p>
+            </div>
+            <div style="background: #d1ecf1; padding: 1.5rem; border-radius: 8px; text-align: center; border-left: 4px solid #17a2b8;">
+                <h3 style="color: #0c5460; margin-bottom: 0.5rem;">Plato Más Vendido (Hoy)</h3>
+                <p style="font-size: 1.2rem; font-weight: bold; color: #2c5530;">Pollo a la Brasa</p>
+                <p style="color: #666; font-size: 0.9rem;">2 vendidos</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem; background: #f8f9fa; border-radius: 8px; padding: 1.5rem;">
+            <h3 style="color: #2c5530; margin-bottom: 1rem;">Notas</h3>
+            <ul style="list-style: disc; padding-left: 1.5rem; color: #555;">
+                <li>Este reporte está limitado al día actual para el rol TRABAJADOR.</li>
+                <li>Para ver reportes por semana, mes o todo el historial, debe ingresar un usuario con rol ADMIN.</li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>Proyecto académico - Pollería</p>
+</footer>
+</body>
+</html>
