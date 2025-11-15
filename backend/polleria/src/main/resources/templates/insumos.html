@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Insumos - Pollería</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
     <header>
@@ -17,13 +17,13 @@
     <nav>
         <div class="nav-container">
             <div class="nav-menu">
-                <a href="index.html">Inicio</a>
-                <a href="insumos.html">Registro de Insumos</a>
-                <a href="platos.html">Registro de Platos</a>
-                <a href="ventas.html">Ventas</a>
-                <a href="reportes.html">Reportes</a>
-                <a href="contacto.html">Contacto</a>
-                <a href="publicidad.html">Publicidad</a>
+                <a th:href="@{/}">Inicio</a>
+                <a th:href="@{/insumos}">Registro de Insumos</a>
+                <a th:href="@{/platos}">Registro de Platos</a>
+                <a th:href="@{/ventas}">Ventas</a>
+                <a th:href="@{/reportes}">Reportes</a>
+                <a th:href="@{/contacto}">Contacto</a>
+                <a th:href="@{/publicidad}">Publicidad</a>
             </div>
         </div>
     </nav>
@@ -31,15 +31,15 @@
     <main>
         <div class="form-container">
             <h2>Registro de Insumos</h2>
-            <form id="form-insumo">
+            <form th:action="@{/insumos/guardar}" th:object="${insumo}" method="post">
                 <div class="form-group">
                     <label for="nombre">Nombre del Insumo:</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Ej: Pollo, Papas, Aceite..." required>
+                    <input type="text" th:field="*{nombre}" placeholder="Ej: Pollo, Papas, Aceite..." required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="unidad">Unidad de Medida:</label>
-                    <select id="unidad" name="unidad" required>
+                    <label for="unidadMedida">Unidad de Medida:</label>
+                    <select th:field="*{unidadMedida}" required>
                         <option value="">Seleccionar unidad</option>
                         <option value="kg">Kilogramos (kg)</option>
                         <option value="g">Gramos (g)</option>
@@ -52,8 +52,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="cantidad">Cantidad Inicial:</label>
-                    <input type="number" id="cantidad" name="cantidad" min="0" step="0.01" placeholder="0.00" required>
+                    <label for="stock">Cantidad Inicial:</label>
+                    <input type="number" th:field="*{stock}" min="0" step="0.01" placeholder="0.00" required>
                 </div>
                 
                 <button type="submit" class="btn">Registrar Insumo</button>
@@ -69,50 +69,27 @@
                         <th>Nombre</th>
                         <th>Unidad</th>
                         <th>Cantidad</th>
-                        <th>Actualizar</th>
+                        <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>001</td>
-                        <td>Pollo</td>
-                        <td>kg</td>
-                        <td>25.5</td>
-                        <td><button class="btn btn-small" onclick="mostrarActualizarInsumo('001','Pollo','kg','25.5')">Actualizar</button></td>
-                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
+                    <tr th:if="${#lists.isEmpty(insumos)}">
+                        <td colspan="6" style="text-align: center;">No hay insumos registrados</td>
                     </tr>
-                    <tr>
-                        <td>002</td>
-                        <td>Papas</td>
-                        <td>kg</td>
-                        <td>15.0</td>
-                        <td><button class="btn btn-small" onclick="mostrarActualizarInsumo('002','Papas','kg','15.0')">Actualizar</button></td>
-                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>003</td>
-                        <td>Aceite</td>
-                        <td>l</td>
-                        <td>8.5</td>
-                        <td><button class="btn btn-small" onclick="mostrarActualizarInsumo('003','Aceite','l','8.5')">Actualizar</button></td>
-                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>004</td>
-                        <td>Sal</td>
-                        <td>kg</td>
-                        <td>2.0</td>
-                        <td><button class="btn btn-small" onclick="mostrarActualizarInsumo('004','Sal','kg','2.0')">Actualizar</button></td>
-                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>005</td>
-                        <td>Limón</td>
-                        <td>unidad</td>
-                        <td>50</td>
-                        <td><button class="btn btn-small" onclick="mostrarActualizarInsumo('005','Limón','unidad','50')">Actualizar</button></td>
-                        <td><button class="btn btn-small" disabled>Eliminar</button></td>
+                    <tr th:each="ins : ${insumos}">
+                        <td th:text="${ins.id}">1</td>
+                        <td th:text="${ins.nombre}">Pollo</td>
+                        <td th:text="${ins.unidadMedida}">kg</td>
+                        <td th:text="${ins.stock}">25.5</td>
+                        <td>
+                            <a th:href="@{/insumos/editar/{id}(id=${ins.id})}" class="btn btn-small">Editar</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/insumos/eliminar/{id}(id=${ins.id})}" 
+                               class="btn btn-small"
+                               onclick="return confirm('¿Está seguro de eliminar este insumo?');">Eliminar</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -121,41 +98,6 @@
 
     <footer>
         <p>Proyecto académico - Pollería</p>
-        <div id="modal-actualizar-insumo" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:1000; align-items:center; justify-content:center;">
-            <div style="background:#fff; padding:1.5rem 2rem; border-radius:8px; min-width:300px; max-width:90vw; margin:auto; box-shadow:0 2px 8px #0002;">
-                <h3 style="margin-top:0;">Actualizar Insumo</h3>
-                <form onsubmit="guardarActualizacionInsumo(event)">
-                    <input type="hidden" id="upd-id">
-                    <div class="form-group">
-                        <label for="upd-nombre">Nombre:</label>
-                        <input type="text" id="upd-nombre" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="upd-unidad">Unidad de Medida:</label>
-                        <select id="upd-unidad" required>
-                            <option value="">Seleccionar unidad</option>
-                            <option value="kg">Kilogramos (kg)</option>
-                            <option value="g">Gramos (g)</option>
-                            <option value="l">Litros (l)</option>
-                            <option value="ml">Mililitros (ml)</option>
-                            <option value="unidad">Unidad</option>
-                            <option value="paquete">Paquete</option>
-                            <option value="caja">Caja</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="upd-cantidad">Cantidad:</label>
-                        <input type="number" id="upd-cantidad" min="0" step="0.01" required>
-                    </div>
-                    <div style="text-align:right; margin-top:1rem;">
-                        <button type="button" class="btn btn-small" onclick="cerrarActualizarInsumo()">Cancelar</button>
-                        <button type="submit" class="btn btn-small">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </footer>
-    <script src="js/config.js"></script>
-    <script src="js/insumos.js"></script>
 </body>
 </html>
