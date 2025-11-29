@@ -1,7 +1,7 @@
 package com.polleria.polleria.service.impl;
 
 import com.polleria.polleria.entity.Anuncio;
-import com.polleria.polleria.repository.Dao.AnuncioDAO;
+import com.polleria.polleria.repository.dao.AnuncioDAO;
 import com.polleria.polleria.service.AnuncioService;
 import org.springframework.stereotype.Service;
 

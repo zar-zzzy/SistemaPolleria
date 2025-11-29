@@ -1,7 +1,7 @@
 package com.polleria.polleria.service.impl;
 
 import com.polleria.polleria.entity.Plato;
-import com.polleria.polleria.repository.Dao.PlatoDAO;
+import com.polleria.polleria.repository.dao.PlatoDAO;
 import com.polleria.polleria.service.PlatoService;
 import org.springframework.stereotype.Service;
 

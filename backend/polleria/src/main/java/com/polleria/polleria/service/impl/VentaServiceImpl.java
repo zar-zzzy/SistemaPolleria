@@ -2,8 +2,8 @@ package com.polleria.polleria.service.impl;
 
 import com.polleria.polleria.entity.DetalleVenta;
 import com.polleria.polleria.entity.Venta;
-import com.polleria.polleria.repository.Dao.DetalleVentaDAO;
-import com.polleria.polleria.repository.Dao.VentaDAO;
+import com.polleria.polleria.repository.dao.DetalleVentaDAO;
+import com.polleria.polleria.repository.dao.VentaDAO;
 import com.polleria.polleria.service.VentaService;
 import org.springframework.stereotype.Service;
 
@@ -46,14 +46,14 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public Venta guardarVenta(Venta venta) {
         Venta ventaGuardada = ventaDAO.save(venta);
-        
+
         if (venta.getDetalles() != null) {
             for (DetalleVenta detalle : venta.getDetalles()) {
                 detalle.setVenta(ventaGuardada);
                 detalleVentaDAO.save(detalle);
             }
         }
-        
+
         return ventaGuardada;
     }
 
@@ -116,17 +116,17 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public String obtenerPlatoMasVendido(List<Venta> ventas) {
         Map<String, Integer> conteoPlatos = new java.util.HashMap<>();
-        
+
         for (Venta venta : ventas) {
             if (venta.getDetalles() != null) {
                 for (DetalleVenta detalle : venta.getDetalles()) {
                     String nombrePlato = detalle.getPlato().getNombre();
-                    conteoPlatos.put(nombrePlato, 
-                        conteoPlatos.getOrDefault(nombrePlato, 0) + detalle.getCantidad());
+                    conteoPlatos.put(nombrePlato,
+                            conteoPlatos.getOrDefault(nombrePlato, 0) + detalle.getCantidad());
                 }
             }
         }
-        
+
         return conteoPlatos.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
@@ -136,26 +136,26 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public Map<String, Map<String, Object>> obtenerDesglosePorPlato(List<Venta> ventas) {
         Map<String, Map<String, Object>> desglose = new java.util.HashMap<>();
-        
+
         for (Venta venta : ventas) {
             if (venta.getDetalles() != null) {
                 for (DetalleVenta detalle : venta.getDetalles()) {
                     String nombrePlato = detalle.getPlato().getNombre();
-                    
+
                     if (!desglose.containsKey(nombrePlato)) {
                         Map<String, Object> info = new java.util.HashMap<>();
                         info.put("cantidad", 0);
                         info.put("total", 0.0);
                         desglose.put(nombrePlato, info);
                     }
-                    
+
                     Map<String, Object> info = desglose.get(nombrePlato);
                     info.put("cantidad", (Integer) info.get("cantidad") + detalle.getCantidad());
                     info.put("total", (Double) info.get("total") + detalle.getSubtotal());
                 }
             }
         }
-        
+
         return desglose;
     }
 }

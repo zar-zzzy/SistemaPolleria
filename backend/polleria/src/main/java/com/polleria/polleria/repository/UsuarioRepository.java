@@ -2,7 +2,7 @@ package com.polleria.polleria.repository;
 
 import com.polleria.polleria.entity.Rol;
 import com.polleria.polleria.entity.Usuario;
-import com.polleria.polleria.repository.Dao.UsuarioDAO;
+import com.polleria.polleria.repository.dao.UsuarioDAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -25,11 +25,10 @@ public class UsuarioRepository implements UsuarioDAO {
 
     private final RowMapper<Usuario> usuarioRowMapper = (rs, rowNum) -> {
         return new Usuario(
-            rs.getLong("id"),
-            rs.getString("username"),
-            rs.getString("password"),
-            Rol.valueOf(rs.getString("rol"))
-        );
+                rs.getLong("id"),
+                rs.getString("username"),
+                rs.getString("password"),
+                Rol.valueOf(rs.getString("rol")));
     };
 
     @Override
@@ -74,9 +73,9 @@ public class UsuarioRepository implements UsuarioDAO {
     @Override
     public Usuario save(Usuario usuario) {
         String query = "INSERT INTO usuario (username, password, rol) VALUES (?, ?, ?)";
-        
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        
+
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, usuario.getUsername());
@@ -84,7 +83,7 @@ public class UsuarioRepository implements UsuarioDAO {
             ps.setString(3, usuario.getRol().name());
             return ps;
         }, keyHolder);
-        
+
         usuario.setId(keyHolder.getKey().longValue());
         return usuario;
     }
@@ -92,12 +91,11 @@ public class UsuarioRepository implements UsuarioDAO {
     @Override
     public Usuario update(Usuario usuario) {
         String query = "UPDATE usuario SET username = ?, password = ?, rol = ? WHERE id = ?";
-        jdbcTemplate.update(query, 
-            usuario.getUsername(),
-            usuario.getPassword(),
-            usuario.getRol().name(),
-            usuario.getId()
-        );
+        jdbcTemplate.update(query,
+                usuario.getUsername(),
+                usuario.getPassword(),
+                usuario.getRol().name(),
+                usuario.getId());
         return usuario;
     }
 

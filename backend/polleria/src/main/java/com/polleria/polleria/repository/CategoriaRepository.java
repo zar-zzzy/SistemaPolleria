@@ -1,7 +1,7 @@
 package com.polleria.polleria.repository;
 
 import com.polleria.polleria.entity.Categoria;
-import com.polleria.polleria.repository.Dao.CategoriaDAO;
+import com.polleria.polleria.repository.dao.CategoriaDAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -24,9 +24,8 @@ public class CategoriaRepository implements CategoriaDAO {
 
     private final RowMapper<Categoria> categoriaRowMapper = (rs, rowNum) -> {
         return new Categoria(
-            rs.getLong("id_categoria"),
-            rs.getString("nombre")
-        );
+                rs.getLong("id_categoria"),
+                rs.getString("nombre"));
     };
 
     @Override
@@ -49,15 +48,15 @@ public class CategoriaRepository implements CategoriaDAO {
     @Override
     public Categoria save(Categoria categoria) {
         String query = "INSERT INTO categorias (nombre) VALUES (?)";
-        
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        
+
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, categoria.getNombre());
             return ps;
         }, keyHolder);
-        
+
         categoria.setIdCategoria(keyHolder.getKey().longValue());
         return categoria;
     }

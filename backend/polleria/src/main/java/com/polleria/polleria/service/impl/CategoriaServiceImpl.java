@@ -1,7 +1,7 @@
 package com.polleria.polleria.service.impl;
 
 import com.polleria.polleria.entity.Categoria;
-import com.polleria.polleria.repository.Dao.CategoriaDAO;
+import com.polleria.polleria.repository.dao.CategoriaDAO;
 import com.polleria.polleria.service.CategoriaService;
 import org.springframework.stereotype.Service;
 

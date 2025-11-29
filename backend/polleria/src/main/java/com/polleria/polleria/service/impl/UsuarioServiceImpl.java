@@ -1,7 +1,7 @@
 package com.polleria.polleria.service.impl;
 
 import com.polleria.polleria.entity.Usuario;
-import com.polleria.polleria.repository.Dao.UsuarioDAO;
+import com.polleria.polleria.repository.dao.UsuarioDAO;
 import com.polleria.polleria.service.UsuarioService;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.polleria.polleria.repository;
 
 import com.polleria.polleria.entity.Insumo;
-import com.polleria.polleria.repository.Dao.InsumoDAO;
+import com.polleria.polleria.repository.dao.InsumoDAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -24,11 +24,10 @@ public class InsumoRepository implements InsumoDAO {
 
     private final RowMapper<Insumo> insumoRowMapper = (rs, rowNum) -> {
         return new Insumo(
-            rs.getLong("id"),
-            rs.getString("nombre"),
-            rs.getString("unidad_medida"),
-            rs.getDouble("stock")
-        );
+                rs.getLong("id"),
+                rs.getString("nombre"),
+                rs.getString("unidad_medida"),
+                rs.getDouble("stock"));
     };
 
     @Override
@@ -51,9 +50,9 @@ public class InsumoRepository implements InsumoDAO {
     @Override
     public Insumo save(Insumo insumo) {
         String query = "INSERT INTO insumos (nombre, unidad_medida, stock) VALUES (?, ?, ?)";
-        
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        
+
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, insumo.getNombre());
@@ -61,7 +60,7 @@ public class InsumoRepository implements InsumoDAO {
             ps.setDouble(3, insumo.getStock());
             return ps;
         }, keyHolder);
-        
+
         insumo.setId(keyHolder.getKey().longValue());
         return insumo;
     }
@@ -69,14 +68,13 @@ public class InsumoRepository implements InsumoDAO {
     @Override
     public Insumo update(Insumo insumo) {
         String query = "UPDATE insumos SET nombre = ?, unidad_medida = ?, stock = ? WHERE id = ?";
-        
-        jdbcTemplate.update(query, 
-            insumo.getNombre(),
-            insumo.getUnidadMedida(),
-            insumo.getStock(),
-            insumo.getId()
-        );
-        
+
+        jdbcTemplate.update(query,
+                insumo.getNombre(),
+                insumo.getUnidadMedida(),
+                insumo.getStock(),
+                insumo.getId());
+
         return insumo;
     }
 

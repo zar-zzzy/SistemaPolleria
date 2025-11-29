@@ -3,7 +3,7 @@ package com.polleria.polleria.repository;
 import com.polleria.polleria.entity.Categoria;
 import com.polleria.polleria.entity.DetalleVenta;
 import com.polleria.polleria.entity.Plato;
-import com.polleria.polleria.repository.Dao.DetalleVentaDAO;
+import com.polleria.polleria.repository.dao.DetalleVentaDAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -29,43 +29,41 @@ public class DetalleVentaRepository implements DetalleVentaDAO {
         detalle.setCantidad(rs.getInt("cantidad"));
         detalle.setSubtotal(rs.getDouble("subtotal"));
         detalle.setPrecio(rs.getDouble("precio"));
-        
+
         Categoria categoria = new Categoria(
-            rs.getLong("id_categoria"),
-            rs.getString("categoria_nombre")
-        );
-        
+                rs.getLong("id_categoria"),
+                rs.getString("categoria_nombre"));
+
         Plato plato = new Plato(
-            rs.getLong("id_plato"),
-            rs.getString("plato_nombre"),
-            rs.getString("plato_descripcion"),
-            rs.getDouble("plato_precio"),
-            categoria
-        );
-        
+                rs.getLong("id_plato"),
+                rs.getString("plato_nombre"),
+                rs.getString("plato_descripcion"),
+                rs.getDouble("plato_precio"),
+                categoria);
+
         detalle.setPlato(plato);
-        
+
         return detalle;
     };
 
     @Override
     public List<DetalleVenta> findByVentaId(Long ventaId) {
         String query = "SELECT dv.id, dv.cantidad, dv.subtotal, dv.precio, " +
-                      "p.id_plato, p.nombre as plato_nombre, p.descripcion as plato_descripcion, p.precio as plato_precio, " +
-                      "c.id_categoria, c.nombre as categoria_nombre " +
-                      "FROM detalle_venta dv " +
-                      "JOIN platos p ON dv.id_plato = p.id_plato " +
-                      "JOIN categorias c ON p.id_categoria = c.id_categoria " +
-                      "WHERE dv.id_venta = ?";
+                "p.id_plato, p.nombre as plato_nombre, p.descripcion as plato_descripcion, p.precio as plato_precio, " +
+                "c.id_categoria, c.nombre as categoria_nombre " +
+                "FROM detalle_venta dv " +
+                "JOIN platos p ON dv.id_plato = p.id_plato " +
+                "JOIN categorias c ON p.id_categoria = c.id_categoria " +
+                "WHERE dv.id_venta = ?";
         return jdbcTemplate.query(query, detalleRowMapper, ventaId);
     }
 
     @Override
     public DetalleVenta save(DetalleVenta detalle) {
         String query = "INSERT INTO detalle_venta (id_venta, id_plato, cantidad, precio, subtotal) VALUES (?, ?, ?, ?, ?)";
-        
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        
+
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, detalle.getVenta().getId());
@@ -75,7 +73,7 @@ public class DetalleVentaRepository implements DetalleVentaDAO {
             ps.setDouble(5, detalle.getSubtotal());
             return ps;
         }, keyHolder);
-        
+
         detalle.setId(keyHolder.getKey().longValue());
         return detalle;
     }

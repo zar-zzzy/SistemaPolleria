@@ -2,7 +2,7 @@ package com.polleria.polleria.repository;
 
 import com.polleria.polleria.entity.Categoria;
 import com.polleria.polleria.entity.Plato;
-import com.polleria.polleria.repository.Dao.PlatoDAO;
+import com.polleria.polleria.repository.dao.PlatoDAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -25,36 +25,34 @@ public class PlatoRepository implements PlatoDAO {
 
     private final RowMapper<Plato> platoRowMapper = (rs, rowNum) -> {
         Categoria categoria = new Categoria(
-            rs.getLong("id_categoria"),
-            rs.getString("categoria_nombre")
-        );
-        
+                rs.getLong("id_categoria"),
+                rs.getString("categoria_nombre"));
+
         return new Plato(
-            rs.getLong("id_plato"),
-            rs.getString("nombre"),
-            rs.getString("descripcion"),
-            rs.getDouble("precio"),
-            categoria
-        );
+                rs.getLong("id_plato"),
+                rs.getString("nombre"),
+                rs.getString("descripcion"),
+                rs.getDouble("precio"),
+                categoria);
     };
 
     @Override
     public List<Plato> findAll() {
         String query = "SELECT p.id_plato, p.nombre, p.descripcion, p.precio, " +
-                      "p.id_categoria, c.nombre as categoria_nombre " +
-                      "FROM platos p " +
-                      "JOIN categorias c ON p.id_categoria = c.id_categoria " +
-                      "ORDER BY p.id_plato";
+                "p.id_categoria, c.nombre as categoria_nombre " +
+                "FROM platos p " +
+                "JOIN categorias c ON p.id_categoria = c.id_categoria " +
+                "ORDER BY p.id_plato";
         return jdbcTemplate.query(query, platoRowMapper);
     }
 
     @Override
     public Optional<Plato> findById(Long id) {
         String query = "SELECT p.id_plato, p.nombre, p.descripcion, p.precio, " +
-                      "p.id_categoria, c.nombre as categoria_nombre " +
-                      "FROM platos p " +
-                      "JOIN categorias c ON p.id_categoria = c.id_categoria " +
-                      "WHERE p.id_plato = ?";
+                "p.id_categoria, c.nombre as categoria_nombre " +
+                "FROM platos p " +
+                "JOIN categorias c ON p.id_categoria = c.id_categoria " +
+                "WHERE p.id_plato = ?";
         try {
             Plato plato = jdbcTemplate.queryForObject(query, platoRowMapper, id);
             return Optional.ofNullable(plato);
@@ -66,9 +64,9 @@ public class PlatoRepository implements PlatoDAO {
     @Override
     public Plato save(Plato plato) {
         String query = "INSERT INTO platos (nombre, descripcion, precio, id_categoria) VALUES (?, ?, ?, ?)";
-        
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        
+
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, plato.getNombre());
@@ -77,7 +75,7 @@ public class PlatoRepository implements PlatoDAO {
             ps.setLong(4, plato.getCategoria().getIdCategoria());
             return ps;
         }, keyHolder);
-        
+
         plato.setIdPlato(keyHolder.getKey().longValue());
         return plato;
     }
@@ -85,13 +83,12 @@ public class PlatoRepository implements PlatoDAO {
     @Override
     public Plato update(Plato plato) {
         String query = "UPDATE platos SET nombre = ?, descripcion = ?, precio = ?, id_categoria = ? WHERE id_plato = ?";
-        jdbcTemplate.update(query, 
-            plato.getNombre(),
-            plato.getDescripcion(),
-            plato.getPrecio(),
-            plato.getCategoria().getIdCategoria(),
-            plato.getIdPlato()
-        );
+        jdbcTemplate.update(query,
+                plato.getNombre(),
+                plato.getDescripcion(),
+                plato.getPrecio(),
+                plato.getCategoria().getIdCategoria(),
+                plato.getIdPlato());
         return plato;
     }
 

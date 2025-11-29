@@ -1,7 +1,7 @@
 package com.polleria.polleria.repository;
 
 import com.polleria.polleria.entity.Venta;
-import com.polleria.polleria.repository.Dao.VentaDAO;
+import com.polleria.polleria.repository.dao.VentaDAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -25,12 +25,11 @@ public class VentaRepository implements VentaDAO {
 
     private final RowMapper<Venta> ventaRowMapper = (rs, rowNum) -> {
         return new Venta(
-            rs.getLong("id"),
-            rs.getTimestamp("fecha").toLocalDateTime(),
-            rs.getDouble("total"),
-            rs.getString("cliente"),
-            rs.getString("metodo_pago")
-        );
+                rs.getLong("id"),
+                rs.getTimestamp("fecha").toLocalDateTime(),
+                rs.getDouble("total"),
+                rs.getString("cliente"),
+                rs.getString("metodo_pago"));
     };
 
     @Override
@@ -53,9 +52,9 @@ public class VentaRepository implements VentaDAO {
     @Override
     public Venta save(Venta venta) {
         String query = "INSERT INTO ventas (fecha, total, cliente, metodo_pago) VALUES (?, ?, ?, ?)";
-        
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        
+
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setTimestamp(1, Timestamp.valueOf(venta.getFecha()));
@@ -64,7 +63,7 @@ public class VentaRepository implements VentaDAO {
             ps.setString(4, venta.getMetodoPago());
             return ps;
         }, keyHolder);
-        
+
         venta.setId(keyHolder.getKey().longValue());
         return venta;
     }
@@ -78,27 +77,27 @@ public class VentaRepository implements VentaDAO {
     @Override
     public List<Venta> findVentasHoy() {
         String query = "SELECT id, fecha, total, cliente, metodo_pago " +
-                      "FROM ventas " +
-                      "WHERE CAST(fecha AS DATE) = CURRENT_DATE " +
-                      "ORDER BY fecha DESC";
+                "FROM ventas " +
+                "WHERE CAST(fecha AS DATE) = CURRENT_DATE " +
+                "ORDER BY fecha DESC";
         return jdbcTemplate.query(query, ventaRowMapper);
     }
 
     @Override
     public List<Venta> findVentasSemana() {
         String query = "SELECT id, fecha, total, cliente, metodo_pago " +
-                      "FROM ventas " +
-                      "WHERE fecha >= DATEADD('DAY', -7, CURRENT_DATE) " +
-                      "ORDER BY fecha DESC";
+                "FROM ventas " +
+                "WHERE fecha >= DATEADD('DAY', -7, CURRENT_DATE) " +
+                "ORDER BY fecha DESC";
         return jdbcTemplate.query(query, ventaRowMapper);
     }
 
     @Override
     public List<Venta> findVentasMes() {
         String query = "SELECT id, fecha, total, cliente, metodo_pago " +
-                      "FROM ventas " +
-                      "WHERE fecha >= DATEADD('DAY', -30, CURRENT_DATE) " +
-                      "ORDER BY fecha DESC";
+                "FROM ventas " +
+                "WHERE fecha >= DATEADD('DAY', -30, CURRENT_DATE) " +
+                "ORDER BY fecha DESC";
         return jdbcTemplate.query(query, ventaRowMapper);
     }
 }

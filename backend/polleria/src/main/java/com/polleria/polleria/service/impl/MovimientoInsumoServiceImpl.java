@@ -1,7 +1,7 @@
 package com.polleria.polleria.service.impl;
 
 import com.polleria.polleria.entity.MovimientoInsumo;
-import com.polleria.polleria.repository.Dao.MovimientoInsumoDAO;
+import com.polleria.polleria.repository.dao.MovimientoInsumoDAO;
 import com.polleria.polleria.service.MovimientoInsumoService;
 import org.springframework.stereotype.Service;
 

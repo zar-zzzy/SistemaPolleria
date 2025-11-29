@@ -1,7 +1,7 @@
 package com.polleria.polleria.service.impl;
 
 import com.polleria.polleria.entity.DetalleVenta;
-import com.polleria.polleria.repository.Dao.DetalleVentaDAO;
+import com.polleria.polleria.repository.dao.DetalleVentaDAO;
 import com.polleria.polleria.service.DetalleVentaService;
 import org.springframework.stereotype.Service;
 

@@ -1,22 +1,26 @@
 package com.polleria.polleria.entity;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "PLATO_INSUMO")
+/**
+ * Entidad que representa la relación entre Plato e Insumo.
+ * POJO simple para uso con JdbcTemplate.
+ */
 public class PlatoInsumo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPlatoInsumo;
-
-    @ManyToOne
-    @JoinColumn(name = "idPlato")
     private Plato plato;
-
-    @ManyToOne
-    @JoinColumn(name = "idInsumo")
     private Insumo insumo;
+    private Double cantidad;
+
+    // ====== Constructores ======
+    public PlatoInsumo() {
+    }
+
+    public PlatoInsumo(Long idPlatoInsumo, Plato plato, Insumo insumo, Double cantidad) {
+        this.idPlatoInsumo = idPlatoInsumo;
+        this.plato = plato;
+        this.insumo = insumo;
+        this.cantidad = cantidad;
+    }
 
     // ====== Getters y Setters ======
     public Long getIdPlatoInsumo() {
@@ -41,5 +45,13 @@ public class PlatoInsumo {
 
     public void setInsumo(Insumo insumo) {
         this.insumo = insumo;
+    }
+
+    public Double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Double cantidad) {
+        this.cantidad = cantidad;
     }
 }
