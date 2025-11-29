@@ -1,9 +1,10 @@
 package com.polleria.polleria.controller;
 
-import com.polleria.polleria.entity.Usuario;
-import com.polleria.polleria.entity.Anuncio;
-import com.polleria.polleria.service.UsuarioService;
-import com.polleria.polleria.service.AnuncioService;
+import com.polleria.polleria.Anuncio.Anuncio;
+import com.polleria.polleria.Anuncio.AnuncioService;
+import com.polleria.polleria.Usuario.Usuario;
+import com.polleria.polleria.Usuario.UsuarioService;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

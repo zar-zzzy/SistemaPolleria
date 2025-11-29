@@ -1,7 +1,8 @@
 package com.polleria.polleria.controller;
 
-import com.polleria.polleria.entity.Venta;
-import com.polleria.polleria.service.VentaService;
+import com.polleria.polleria.Venta.Venta;
+import com.polleria.polleria.Venta.VentaService;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

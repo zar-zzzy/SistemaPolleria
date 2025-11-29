@@ -1,10 +1,11 @@
 package com.polleria.polleria.controller;
 
-import com.polleria.polleria.entity.Insumo;
-import com.polleria.polleria.entity.MovimientoInsumo;
-import com.polleria.polleria.entity.TipoMovimiento;
-import com.polleria.polleria.service.InsumoService;
-import com.polleria.polleria.service.MovimientoInsumoService;
+import com.polleria.polleria.Insumo.Insumo;
+import com.polleria.polleria.Insumo.InsumoService;
+import com.polleria.polleria.MovimientoInsumo.MovimientoInsumo;
+import com.polleria.polleria.MovimientoInsumo.MovimientoInsumoService;
+import com.polleria.polleria.MovimientoInsumo.TipoMovimiento;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

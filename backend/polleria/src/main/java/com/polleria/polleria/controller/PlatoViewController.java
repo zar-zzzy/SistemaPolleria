@@ -1,8 +1,9 @@
 package com.polleria.polleria.controller;
 
-import com.polleria.polleria.entity.Plato;
-import com.polleria.polleria.service.PlatoService;
-import com.polleria.polleria.service.CategoriaService;
+import com.polleria.polleria.Categoria.CategoriaService;
+import com.polleria.polleria.Plato.Plato;
+import com.polleria.polleria.Plato.PlatoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

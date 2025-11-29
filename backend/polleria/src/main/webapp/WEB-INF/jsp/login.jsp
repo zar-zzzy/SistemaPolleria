@@ -44,8 +44,8 @@
         <div class="login-note">
             <p style="margin-top: 15px; color: #666;">
                 <strong>Usuarios de prueba:</strong><br>
-                Admin: admin / admin<br>
-                Trabajador: trabajador / 123
+                Admin: admin / 123456<br>
+                Trabajador: trabajador / 123456
             </p>
         </div>
     </div>

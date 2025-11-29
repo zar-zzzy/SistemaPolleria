@@ -1,10 +1,11 @@
 package com.polleria.polleria.controller;
 
-import com.polleria.polleria.entity.Venta;
-import com.polleria.polleria.entity.DetalleVenta;
-import com.polleria.polleria.entity.Plato;
-import com.polleria.polleria.service.VentaService;
-import com.polleria.polleria.service.PlatoService;
+import com.polleria.polleria.DetalleVenta.DetalleVenta;
+import com.polleria.polleria.Plato.Plato;
+import com.polleria.polleria.Plato.PlatoService;
+import com.polleria.polleria.Venta.Venta;
+import com.polleria.polleria.Venta.VentaService;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

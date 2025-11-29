@@ -79,7 +79,7 @@ INSERT INTO plato_insumo (id_plato, id_insumo) VALUES (5, 4);
 
 -- Insertar Anuncios de ejemplo
 INSERT INTO anuncio (titulo, mensaje, activo, fecha_inicio, fecha_fin) 
-VALUES ('Bienvenidos', '¡Bienvenidos a nuestro sistema de gestión!', TRUE, '2024-01-01', '2025-12-31');
+VALUES ('Bienvenidos', 'Bienvenidos a nuestro sistema de gestion', TRUE, '2025-11-28', '2025-11-29');
 
 INSERT INTO anuncio (titulo, mensaje, activo, fecha_inicio, fecha_fin) 
-VALUES ('Promoción del día', 'Pollo entero + 2 bebidas por solo S/. 50', TRUE, '2024-01-01', '2025-12-31');
+VALUES ('Promocion del dia', 'Pollo entero + 2 bebidas por solo S/. 50', TRUE, '2025-11-28', '2025-11-29');
