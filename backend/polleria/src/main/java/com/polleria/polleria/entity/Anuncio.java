@@ -1,26 +1,28 @@
 package com.polleria.polleria.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "anuncio")
 public class Anuncio {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String titulo;
-
-    @Column(length = 1000)
     private String mensaje;
-
-    private boolean activo = true;
-
+    private boolean activo;
     private LocalDate fechaInicio;
-
     private LocalDate fechaFin;
+
+    public Anuncio() {
+        this.activo = true;
+    }
+
+    public Anuncio(Long id, String titulo, String mensaje, boolean activo, LocalDate fechaInicio, LocalDate fechaFin) {
+        this.id = id;
+        this.titulo = titulo;
+        this.mensaje = mensaje;
+        this.activo = activo;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
 
     public Long getId() {
         return id;

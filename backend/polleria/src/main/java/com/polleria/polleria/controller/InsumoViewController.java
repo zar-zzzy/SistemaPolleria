@@ -1,31 +1,26 @@
 package com.polleria.polleria.controller;
 
 import com.polleria.polleria.entity.Insumo;
+import com.polleria.polleria.entity.MovimientoInsumo;
+import com.polleria.polleria.entity.TipoMovimiento;
 import com.polleria.polleria.service.InsumoService;
 import com.polleria.polleria.service.MovimientoInsumoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Controlador MVC para la gestión de insumos.
- * Maneja las peticiones HTTP y retorna vistas JSP.
- */
 @Controller
 @RequestMapping("/insumos")
 public class InsumoViewController {
 
-    @Autowired
-    private InsumoService insumoService;
+    private final InsumoService insumoService;
+    private final MovimientoInsumoService movimientoService;
 
-    @Autowired
-    private MovimientoInsumoService movimientoService;
+    public InsumoViewController(InsumoService insumoService, MovimientoInsumoService movimientoService) {
+        this.insumoService = insumoService;
+        this.movimientoService = movimientoService;
+    }
 
-    /**
-     * Muestra la página de insumos con la lista completa y últimos movimientos.
-     * GET /insumos
-     */
     @GetMapping
     public String listarInsumos(Model model) {
         model.addAttribute("insumos", insumoService.listarInsumos());
@@ -34,40 +29,50 @@ public class InsumoViewController {
         return "insumos";
     }
 
-    /**
-     * Guarda un nuevo insumo o actualiza uno existente.
-     * POST /insumos/guardar
-     */
     @PostMapping("/guardar")
     public String guardarInsumo(@ModelAttribute Insumo insumo) {
-        insumoService.guardarInsumo(insumo);
-        return "redirect:/insumos";
-    }
-
-    /**
-     * Elimina un insumo por su ID.
-     * GET /insumos/eliminar/{id}
-     */
-    @GetMapping("/eliminar/{id}")
-    public String eliminarInsumo(@PathVariable Long id) {
-        try {
-            insumoService.eliminarInsumo(id);
-        } catch (Exception e) {
-            // Manejar error si está en uso
+        boolean esNuevo = (insumo.getId() == null);
+        double stockAnterior = 0.0;
+    
+        if (!esNuevo) {
+            Insumo insumoAnterior = insumoService.obtenerInsumoPorId(insumo.getId()).orElse(null);
+        if (insumoAnterior != null) {
+            stockAnterior = insumoAnterior.getStock();
         }
-        return "redirect:/insumos";
     }
+    
+    Insumo insumoGuardado = insumoService.guardarInsumo(insumo);
+    
+    // Registrar movimiento
+    if (esNuevo) {
+        MovimientoInsumo movimiento = new MovimientoInsumo();
+        movimiento.setInsumo(insumoGuardado);
+        movimiento.setTipo(TipoMovimiento.ENTRADA);
+        movimiento.setCantidad(insumo.getStock());
+        movimiento.setMotivo("Stock inicial");
+        movimientoService.guardarMovimiento(movimiento);
+    } else {
+        double diferencia = insumo.getStock() - stockAnterior;
+        if (diferencia != 0) {
+            MovimientoInsumo movimiento = new MovimientoInsumo();
+            movimiento.setInsumo(insumoGuardado);
+            movimiento.setTipo(diferencia > 0 ? TipoMovimiento.ENTRADA : TipoMovimiento.SALIDA);
+            movimiento.setCantidad(Math.abs(diferencia));
+            movimiento.setMotivo(diferencia > 0 ? "Ajuste de inventario (entrada)" : "Ajuste de inventario (salida)");
+            movimientoService.guardarMovimiento(movimiento);
+        }
+    }
+    
+    return "redirect:/insumos";
+}
 
-    /**
-     * Carga un insumo en el formulario para editarlo.
-     * GET /insumos/editar/{id}
-     */
     @GetMapping("/editar/{id}")
     public String editarInsumo(@PathVariable Long id, Model model) {
         insumoService.obtenerInsumoPorId(id).ifPresent(insumo -> {
             model.addAttribute("insumo", insumo);
         });
         model.addAttribute("insumos", insumoService.listarInsumos());
+        model.addAttribute("movimientos", movimientoService.listarUltimos10());
         return "insumos";
     }
 }

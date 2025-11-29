@@ -44,9 +44,9 @@ public class LoginController {
 
             // Redirigir según el rol
             if ("ADMIN".equals(usuario.getRol().name())) {
-                return "redirect:/publicidad";
+                return "redirect:/admin/usuarios";  // ✅ CORREGIDO: ADMIN va a gestión de usuarios
             } else {
-                return "redirect:/";
+                return "redirect:/";  // ✅ TRABAJADOR va al inicio
             }
         } else {
             model.addAttribute("error", "Usuario o contraseña incorrectos");

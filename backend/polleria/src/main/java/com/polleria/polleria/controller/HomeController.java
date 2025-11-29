@@ -28,9 +28,9 @@ public class HomeController {
             return "redirect:/login";
         }
 
-        // ADMIN va directo a gestión de anuncios, TRABAJADOR al inicio operativo
+        // ADMIN va a gestión de usuarios, TRABAJADOR al inicio operativo
         if ("ADMIN".equals(rol)) {
-            return "redirect:/admin/anuncios";
+            return "redirect:/admin/usuarios";
         }
         return "index";
     }
@@ -46,50 +46,16 @@ public class HomeController {
     }
 
     /**
-     * Página de publicidad - Solo ADMIN. Si es TRABAJADOR, lo mandamos a anuncios
-     * de solo lectura.
+     * Página de publicidad - Solo TRABAJADOR
      */
     @GetMapping("/publicidad")
     public String publicidad(HttpSession session, Model model) {
         String rol = (String) session.getAttribute("rol");
-        if ("ADMIN".equals(rol)) {
-            model.addAttribute("anuncios", anuncioService.listarActivosHoy());
-            return "publicidad";
-        }
-        if ("TRABAJADOR".equals(rol)) {
-            return "redirect:/anuncios";
-        }
-        return "redirect:/login";
-    }
-
-    /** Página de reportes (métricas) - Solo ADMIN */
-    @GetMapping("/reportes")
-    public String reportes(HttpSession session) {
-        String rol = (String) session.getAttribute("rol");
-        if (!"ADMIN".equals(rol)) {
-            return "redirect:/login";
-        }
-        return "reportes";
-    }
-
-    /** Página de reportes SOLO del día - Solo TRABAJADOR */
-    @GetMapping("/reportes-dia")
-    public String reportesDia(HttpSession session) {
-        String rol = (String) session.getAttribute("rol");
         if (!"TRABAJADOR".equals(rol)) {
             return "redirect:/login";
         }
-        return "reportes-dia";
-    }
-
-    /** Página de ventas - Solo TRABAJADOR */
-    @GetMapping("/ventas")
-    public String ventas(HttpSession session) {
-        String rol = (String) session.getAttribute("rol");
-        if (!"TRABAJADOR".equals(rol)) {
-            return "redirect:/login";
-        }
-        return "ventas";
+        model.addAttribute("anuncios", anuncioService.listarActivosHoy());
+        return "publicidad";
     }
 
     /** Página de anuncios para TRABAJADOR (solo lectura). */
@@ -100,7 +66,9 @@ public class HomeController {
             return "redirect:/login";
         }
         model.addAttribute("anuncios", anuncioService.listarActivosHoy());
-        // reutilizamos la misma plantilla de publicidad, pero es vista del trabajador
         return "publicidad";
     }
+    
+    // ❌ ELIMINADO: @GetMapping("/reportes") porque ahora lo maneja ReporteController
+    // ❌ ELIMINADO: @GetMapping("/reportes-dia") ya no se usa
 }

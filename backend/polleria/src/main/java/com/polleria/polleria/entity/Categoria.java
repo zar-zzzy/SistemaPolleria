@@ -1,18 +1,18 @@
 package com.polleria.polleria.entity;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "CATEGORIAS")
 public class Categoria {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCategoria;
-
     private String nombre;
 
-    // ====== Getters y Setters ======
+    public Categoria() {
+    }
+
+    public Categoria(Long idCategoria, String nombre) {
+        this.idCategoria = idCategoria;
+        this.nombre = nombre;
+    }
+
     public Long getIdCategoria() {
         return idCategoria;
     }

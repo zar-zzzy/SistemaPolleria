@@ -21,7 +21,7 @@
         <div class="nav-menu">
             <a href="/admin/usuarios">Gestionar usuarios</a>
             <a href="/admin/anuncios">Gestionar anuncios</a>
-            <a href="/reportes">Ver métricas</a>
+            <a href="/reportes">Reportes</a>
         </div>
     </div>
 </nav>

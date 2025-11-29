@@ -1,26 +1,21 @@
 package com.polleria.polleria.entity;
 
-import jakarta.persistence.*;
-
-/**
- * Entidad que representa un insumo en la base de datos.
- * Se mapea a la tabla INSUMOS en H2.
- */
-@Entity
-@Table(name = "insumo")
 public class Insumo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
-
-    private int stock;
-
     private String unidadMedida;
+    private double stock;
 
-    // Getters y Setters
+    public Insumo() {
+    }
+
+    public Insumo(Long id, String nombre, String unidadMedida, double stock) {
+        this.id = id;
+        this.nombre = nombre;
+        this.unidadMedida = unidadMedida;
+        this.stock = stock;
+    }
 
     public Long getId() {
         return id;
@@ -38,19 +33,19 @@ public class Insumo {
         this.nombre = nombre;
     }
 
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public String getUnidadMedida() { // ✅ Getter agregado
+    public String getUnidadMedida() {
         return unidadMedida;
     }
 
-    public void setUnidadMedida(String unidadMedida) { // ✅ Setter agregado
+    public void setUnidadMedida(String unidadMedida) {
         this.unidadMedida = unidadMedida;
+    }
+
+    public double getStock() {
+        return stock;
+    }
+
+    public void setStock(double stock) {
+        this.stock = stock;
     }
 }

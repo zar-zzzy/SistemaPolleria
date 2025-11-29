@@ -1,41 +1,23 @@
 package com.polleria.polleria.service;
 
 import com.polleria.polleria.entity.Venta;
-import com.polleria.polleria.repository.VentaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-@Service
-public class VentaService {
-
-    @Autowired
-    private VentaRepository ventaRepository;
-
-    public List<Venta> listarVentas() {
-        return ventaRepository.findAll();
-    }
-
-    public Optional<Venta> obtenerVentaPorId(Long id) {
-        return ventaRepository.findById(id);
-    }
-
-    public Venta guardarVenta(Venta venta) {
-        return ventaRepository.save(venta);
-    }
-
-    public Venta actualizarVenta(Long id, Venta ventaActualizada) {
-        return ventaRepository.findById(id).map(venta -> {
-            venta.setFecha(ventaActualizada.getFecha());
-            venta.setCliente(ventaActualizada.getCliente());
-            venta.setTotal(ventaActualizada.getTotal());
-            return ventaRepository.save(venta);
-        }).orElse(null);
-    }
-
-    public void eliminarVenta(Long id) {
-        ventaRepository.deleteById(id);
-    }
+public interface VentaService {
+    List<Venta> listarVentas();
+    Optional<Venta> obtenerVentaPorId(Long id);
+    Venta guardarVenta(Venta venta);
+    void eliminarVenta(Long id);
+    
+    // MÉTODOS PARA REPORTES
+    List<Venta> obtenerVentasHoy();
+    List<Venta> obtenerVentasSemana();
+    List<Venta> obtenerVentasMes();
+    double calcularTotalVentas(List<Venta> ventas);
+    int contarVentas(List<Venta> ventas);
+    double calcularTicketPromedio(List<Venta> ventas);
+    String obtenerPlatoMasVendido(List<Venta> ventas);
+    Map<String, Map<String, Object>> obtenerDesglosePorPlato(List<Venta> ventas);
 }

@@ -33,7 +33,7 @@ public class PlatoViewController {
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminarPlato(@PathVariable Integer id) {
+    public String eliminarPlato(@PathVariable Long id) {
         try {
             platoService.eliminar(id);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class PlatoViewController {
     }
 
     @GetMapping("/editar/{id}")
-    public String editarPlato(@PathVariable Integer id, Model model) {
+    public String editarPlato(@PathVariable Long id, Model model) {
         platoService.buscarPorId(id).ifPresent(plato -> {
             model.addAttribute("plato", plato);
         });

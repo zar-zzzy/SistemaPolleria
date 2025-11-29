@@ -5,23 +5,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reportes - Sistema de Ventas Pollería</title>
+    <title>Reportes de Ventas - Pollería</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <header>
     <div class="header-content">
         <h1>Sistema de Ventas - Pollería</h1>
-        <p>Reportes y Estadísticas (ADMIN)</p>
+        <p>Reportes y Estadísticas</p>
     </div>
 </header>
 
 <nav>
     <div class="nav-container">
         <div class="nav-menu">
-            <a href="/admin/usuarios">Gestionar usuarios</a>
-            <a href="/admin/anuncios">Gestionar anuncios</a>
-            <a href="/reportes">Ver métricas</a>
+            <a href="/admin/usuarios">Gestionar Usuarios</a>
+            <a href="/admin/anuncios">Gestionar Anuncios</a>
+            <a href="/reportes">Reportes</a>
         </div>
     </div>
 </nav>
@@ -32,85 +32,72 @@
         
         <div class="form-group">
             <label for="periodo">Seleccionar Período:</label>
-            <select id="periodo" name="periodo" onchange="cambiarPeriodo()">
-                <option value="dia">Hoy</option>
-                <option value="semana">Esta Semana</option>
-                <option value="mes">Este Mes</option>
-                <option value="todo">Histórico Completo</option>
+            <select id="periodo" onchange="cambiarPeriodo(this.value)">
+                <option value="hoy" ${periodo == 'hoy' ? 'selected' : ''}>Hoy</option>
+                <option value="semana" ${periodo == 'semana' ? 'selected' : ''}>Esta Semana</option>
+                <option value="mes" ${periodo == 'mes' ? 'selected' : ''}>Este Mes</option>
             </select>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Total Ventas</h3>
-                <p class="stat-value">S/ 1,250.00</p>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 30px 0;">
+            <div style="background: #fff; padding: 20px; border-radius: 8px; border: 2px solid #27ae60;">
+                <h3 style="margin: 0 0 10px 0; color: #27ae60;">Total Ventas</h3>
+                <p style="font-size: 32px; font-weight: bold; margin: 0;">S/ ${totalVentas}</p>
             </div>
-            <div class="stat-card">
-                <h3>Cantidad Ventas</h3>
-                <p class="stat-value">47</p>
-            </div>
-            <div class="stat-card">
-                <h3>Ticket Promedio</h3>
-                <p class="stat-value">S/ 26.60</p>
-            </div>
-            <div class="stat-card">
-                <h3>Plato Más Vendido</h3>
-                <p class="stat-value">Pollo a la Brasa</p>
-            </div>
-        </div>
 
-        <div class="table-container" style="margin-top: 30px;">
-            <h3>Desglose de Ventas</h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>Plato</th>
-                    <th>Cantidad</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Pollo a la Brasa</td>
-                    <td>25</td>
-                    <td>S/ 450.00</td>
-                </tr>
-                <tr>
-                    <td>Pollo Broaster</td>
-                    <td>15</td>
-                    <td>S/ 225.00</td>
-                </tr>
-                <tr>
-                    <td>Papas Fritas</td>
-                    <td>30</td>
-                    <td>S/ 240.00</td>
-                </tr>
-                <tr>
-                    <td>Ensalada Mixta</td>
-                    <td>20</td>
-                    <td>S/ 120.00</td>
-                </tr>
-                <tr>
-                    <td>Chicha Morada</td>
-                    <td>35</td>
-                    <td>S/ 105.00</td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="background: #fff; padding: 20px; border-radius: 8px; border: 2px solid #3498db;">
+                <h3 style="margin: 0 0 10px 0; color: #3498db;">Cantidad Ventas</h3>
+                <p style="font-size: 32px; font-weight: bold; margin: 0;">${cantidadVentas}</p>
+            </div>
+
+            <div style="background: #fff; padding: 20px; border-radius: 8px; border: 2px solid #e67e22;">
+                <h3 style="margin: 0 0 10px 0; color: #e67e22;">Ticket Promedio</h3>
+                <p style="font-size: 32px; font-weight: bold; margin: 0;">S/ ${String.format("%.2f", ticketPromedio)}</p>
+            </div>
+
+            <div style="background: #fff; padding: 20px; border-radius: 8px; border: 2px solid #9b59b6;">
+                <h3 style="margin: 0 0 10px 0; color: #9b59b6;">Plato Más Vendido</h3>
+                <p style="font-size: 24px; font-weight: bold; margin: 0;">${platoMasVendido}</p>
+            </div>
         </div>
+    </div>
+
+    <div class="table-container">
+        <h2>Desglose de Ventas</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Plato</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:if test="${empty desglose}">
+                <tr>
+                    <td colspan="3" style="text-align: center;">No hay ventas en este período</td>
+                </tr>
+            </c:if>
+            <c:forEach items="${desglose}" var="entry">
+                <tr>
+                    <td>${entry.key}</td>
+                    <td>${entry.value.cantidad}</td>
+                    <td>S/ ${String.format("%.2f", entry.value.total)}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
 </main>
 
 <footer>
     <p>Proyecto académico - Pollería</p>
 </footer>
+
 <script>
-    function cambiarPeriodo() {
-        const periodo = document.getElementById('periodo').value;
-        console.log('Cambiando a período:', periodo);
-        // Aquí se implementaría la lógica para recargar los datos según el período
-        alert('Función en desarrollo: Mostrará datos de ' + periodo);
-    }
+function cambiarPeriodo(periodo) {
+    window.location.href = '/reportes?periodo=' + periodo;
+}
 </script>
 </body>
 </html>

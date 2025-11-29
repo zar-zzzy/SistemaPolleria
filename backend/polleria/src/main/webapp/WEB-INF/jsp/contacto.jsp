@@ -24,7 +24,6 @@
                 <a href="/insumos">Registro de Insumos</a>
                 <a href="/platos">Registro de Platos</a>
                 <a href="/ventas">Ventas</a>
-                <a href="/reportes-dia">Reportes</a>
                 <a href="/contacto">Contacto</a>
                 <a href="/anuncios">Publicidad</a>
             </c:if>

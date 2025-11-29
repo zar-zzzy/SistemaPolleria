@@ -1,25 +1,29 @@
 package com.polleria.polleria.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "VENTAS")
 public class Venta {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private LocalDateTime fecha;
     private double total;
     private String cliente;
-
-    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private String metodoPago;
     private List<DetalleVenta> detalles;
 
-    // ====== Getters y Setters ======
+    public Venta() {
+        this.fecha = LocalDateTime.now();
+    }
+
+    public Venta(Long id, LocalDateTime fecha, double total, String cliente, String metodoPago) {
+        this.id = id;
+        this.fecha = fecha;
+        this.total = total;
+        this.cliente = cliente;
+        this.metodoPago = metodoPago;
+    }
+
     public Long getId() {
         return id;
     }
@@ -50,6 +54,14 @@ public class Venta {
 
     public void setCliente(String cliente) {
         this.cliente = cliente;
+    }
+
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
     }
 
     public List<DetalleVenta> getDetalles() {

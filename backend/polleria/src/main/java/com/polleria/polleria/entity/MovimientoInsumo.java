@@ -1,38 +1,29 @@
 package com.polleria.polleria.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-/**
- * Entidad para registrar movimientos de stock de insumos.
- * Tipos: ENTRADA (compra/ingreso) y SALIDA (uso/consumo)
- */
-@Entity
-@Table(name = "movimiento_insumo")
 public class MovimientoInsumo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "insumo_id")
     private Insumo insumo;
-
-    @Enumerated(EnumType.STRING)
     private TipoMovimiento tipo;
-
     private double cantidad;
     private String motivo;
-
     private LocalDateTime fecha;
 
-    // Constructor por defecto
     public MovimientoInsumo() {
         this.fecha = LocalDateTime.now();
     }
 
-    // Getters y Setters
+    public MovimientoInsumo(Long id, Insumo insumo, TipoMovimiento tipo, double cantidad, String motivo, LocalDateTime fecha) {
+        this.id = id;
+        this.insumo = insumo;
+        this.tipo = tipo;
+        this.cantidad = cantidad;
+        this.motivo = motivo;
+        this.fecha = fecha;
+    }
+
     public Long getId() {
         return id;
     }

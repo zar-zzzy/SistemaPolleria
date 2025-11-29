@@ -1,30 +1,25 @@
 package com.polleria.polleria.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "DETALLE_VENTA")
 public class DetalleVenta {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private int cantidad;
     private double subtotal;
-    private double precio; // ✅ Campo agregado
-
-    @ManyToOne
-    @JoinColumn(name = "idVenta") // 🔹 Ahora coincide con la tabla "VENTAS"
-    @JsonIgnoreProperties("detalles")
+    private double precio;
     private Venta venta;
-
-    @ManyToOne
-    @JoinColumn(name = "idPlato") // 🔹 Ahora coincide con la tabla "PLATOS"
     private Plato plato;
 
-    // ====== Getters y Setters ======
+    public DetalleVenta() {
+    }
+
+    public DetalleVenta(Long id, int cantidad, double subtotal, double precio, Venta venta, Plato plato) {
+        this.id = id;
+        this.cantidad = cantidad;
+        this.subtotal = subtotal;
+        this.precio = precio;
+        this.venta = venta;
+        this.plato = plato;
+    }
 
     public Long getId() {
         return id;

@@ -1,24 +1,24 @@
 package com.polleria.polleria.entity;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "PLATOS")
 public class Plato {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPlato;
-
     private String nombre;
     private String descripcion;
     private double precio;
-
-    @ManyToOne
-    @JoinColumn(name = "idCategoria", nullable = false)
     private Categoria categoria;
 
-    // ====== Getters y Setters ======
+    public Plato() {
+    }
+
+    public Plato(Long idPlato, String nombre, String descripcion, double precio, Categoria categoria) {
+        this.idPlato = idPlato;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.categoria = categoria;
+    }
+
     public Long getIdPlato() {
         return idPlato;
     }

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,9 +24,8 @@
             <a href="/insumos">Registro de Insumos</a>
             <a href="/platos">Registro de Platos</a>
             <a href="/ventas">Ventas</a>
-            <a href="/reportes">Reportes</a>
             <a href="/contacto">Contacto</a>
-            <a href="/publicidad">Publicidad</a>
+            <a href="/anuncios">Publicidad</a>
         </div>
     </div>
 </nav>
@@ -33,21 +33,21 @@
 <main>
     <div class="form-container">
         <h2>Registro de Ventas</h2>
-        <form id="form-venta">
+        <form action="/ventas/guardar" method="post" onsubmit="return validarFormulario()">
             <div class="form-group">
                 <label for="cliente">Nombre del Cliente (Opcional):</label>
                 <input type="text" id="cliente" name="cliente" placeholder="Nombre completo del cliente">
             </div>
 
             <div class="form-group">
-                <label for="plato">Seleccionar Plato:</label>
-                <select id="plato" name="plato" required onchange="calcularTotal()">
+                <label for="idPlato">Seleccionar Plato:</label>
+                <select id="idPlato" name="idPlato" required onchange="calcularTotal()">
                     <option value="">Seleccionar plato</option>
-                    <option value="P001" data-precio="18.00">Pollo a la Brasa - S/ 18.00</option>
-                    <option value="P002" data-precio="15.00">Pollo Broaster - S/ 15.00</option>
-                    <option value="P003" data-precio="8.00">Papas Fritas - S/ 8.00</option>
-                    <option value="P004" data-precio="6.00">Ensalada Mixta - S/ 6.00</option>
-                    <option value="P005" data-precio="3.00">Chicha Morada - S/ 3.00</option>
+                    <c:forEach items="${platos}" var="plato">
+                        <option value="${plato.idPlato}" data-precio="${plato.precio}">
+                            ${plato.nombre} - S/ ${plato.precio}
+                        </option>
+                    </c:forEach>
                 </select>
             </div>
 
@@ -62,19 +62,14 @@
             </div>
 
             <div class="form-group">
-                <label for="metodo-pago">Método de Pago:</label>
-                <select id="metodo-pago" name="metodo-pago" required>
+                <label for="metodoPago">Método de Pago:</label>
+                <select id="metodoPago" name="metodoPago" required>
                     <option value="">Seleccionar método</option>
-                    <option value="efectivo">Efectivo</option>
-                    <option value="tarjeta">Tarjeta</option>
-                    <option value="yape">Yape</option>
-                    <option value="plin">Plin</option>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta">Tarjeta</option>
+                    <option value="Yape">Yape</option>
+                    <option value="Plin">Plin</option>
                 </select>
-            </div>
-
-            <div class="form-group">
-                <label for="observaciones">Observaciones (Opcional):</label>
-                <textarea id="observaciones" name="observaciones" rows="2" placeholder="Notas adicionales sobre la venta..."></textarea>
             </div>
 
             <button type="submit" class="btn">Registrar Venta</button>
@@ -86,27 +81,51 @@
         <table>
             <thead>
             <tr>
-                <th>ID Venta</th>
+                <th>ID</th>
                 <th>Cliente</th>
                 <th>Plato</th>
                 <th>Cantidad</th>
                 <th>Precio Unit.</th>
                 <th>Total</th>
-                <th>Pago</th>
+                <th>Método Pago</th>
                 <th>Fecha</th>
+                <th>Eliminar</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>V001</td>
-                <td>Juan Pérez</td>
-                <td>Pollo a la Brasa</td>
-                <td>2</td>
-                <td>S/ 18.00</td>
-                <td>S/ 36.00</td>
-                <td>Efectivo</td>
-                <td>2025-10-17</td>
-            </tr>
+            <c:if test="${empty ventas}">
+                <tr>
+                    <td colspan="9" style="text-align: center;">No hay ventas registradas</td>
+                </tr>
+            </c:if>
+            <c:forEach items="${ventas}" var="venta">
+                <c:forEach items="${venta.detalles}" var="detalle" varStatus="status">
+                    <tr>
+                        <c:if test="${status.first}">
+                            <td rowspan="${venta.detalles.size()}">${venta.id}</td>
+                            <td rowspan="${venta.detalles.size()}">${venta.cliente}</td>
+                        </c:if>
+                        <td>${detalle.plato.nombre}</td>
+                        <td>${detalle.cantidad}</td>
+                        <td>S/ ${detalle.precio}</td>
+                        <c:if test="${status.first}">
+                            <td rowspan="${venta.detalles.size()}" style="font-weight: bold;">S/ ${venta.total}</td>
+                            <td rowspan="${venta.detalles.size()}">${venta.metodoPago}</td>
+                            <td rowspan="${venta.detalles.size()}">
+                                <c:set var="formatter" value="<%= DateTimeFormatter.ofPattern(\"dd/MM/yyyy HH:mm\") %>" />
+                                ${venta.fecha.format(formatter)}
+                            </td>
+                            <td rowspan="${venta.detalles.size()}">
+                                <a href="/ventas/eliminar/${venta.id}" 
+                                   class="btn btn-small"
+                                   onclick="return confirm('¿Está seguro de eliminar esta venta?');">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </c:if>
+                    </tr>
+                </c:forEach>
+            </c:forEach>
             </tbody>
         </table>
     </div>
@@ -115,7 +134,38 @@
 <footer>
     <p>Proyecto académico - Pollería</p>
 </footer>
-<script src="/js/config.js"></script>
-<script src="/js/ventas.js"></script>
+
+<script>
+function calcularTotal() {
+    const select = document.getElementById('idPlato');
+    const cantidad = document.getElementById('cantidad').value;
+    const totalInput = document.getElementById('total');
+    
+    if (select.value && cantidad) {
+        const precio = select.options[select.selectedIndex].getAttribute('data-precio');
+        const total = (precio * cantidad).toFixed(2);
+        totalInput.value = 'S/ ' + total;
+    } else {
+        totalInput.value = 'S/ 0.00';
+    }
+}
+
+function validarFormulario() {
+    const plato = document.getElementById('idPlato').value;
+    const metodoPago = document.getElementById('metodoPago').value;
+    
+    if (!plato) {
+        alert('Por favor selecciona un plato');
+        return false;
+    }
+    
+    if (!metodoPago) {
+        alert('Por favor selecciona un método de pago');
+        return false;
+    }
+    
+    return true;
+}
+</script>
 </body>
 </html>

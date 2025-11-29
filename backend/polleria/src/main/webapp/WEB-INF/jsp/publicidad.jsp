@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,7 +24,6 @@
                 <a href="/insumos">Registro de Insumos</a>
                 <a href="/platos">Registro de Platos</a>
                 <a href="/ventas">Ventas</a>
-                <a href="/reportes-dia">Reportes</a>
                 <a href="/contacto">Contacto</a>
                 <a href="/anuncios">Publicidad</a>
             </c:if>
@@ -59,8 +57,7 @@
                 </p>
                 <div style="font-size: 14px; color: #666; border-top: 1px solid #eee; padding-top: 10px;">
                     <strong>Vigencia:</strong>
-                    <fmt:formatDate value="${anuncio.fechaInicio}" pattern="dd/MM/yyyy"/> -
-                    <fmt:formatDate value="${anuncio.fechaFin}" pattern="dd/MM/yyyy"/>
+                    ${anuncio.fechaInicio} - ${anuncio.fechaFin}
                 </div>
             </div>
         </c:forEach>

@@ -1,29 +1,22 @@
 package com.polleria.polleria.entity;
 
-import jakarta.persistence.*;
-
-/**
- * Entidad que representa un usuario del sistema.
- * Roles: ADMIN (gestiona usuarios, anuncios, métricas) y TRABAJADOR (opera el
- * sistema)
- */
-@Entity
-@Table(name = "usuario")
 public class Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true, nullable = false)
     private String username;
-
     private String password;
-
-    @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    // Getters y Setters
+    public Usuario() {
+    }
+
+    public Usuario(Long id, String username, String password, Rol rol) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.rol = rol;
+    }
+
     public Long getId() {
         return id;
     }
