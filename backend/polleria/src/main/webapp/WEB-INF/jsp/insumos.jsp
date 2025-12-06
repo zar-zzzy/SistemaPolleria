@@ -101,13 +101,12 @@
                 <th>Unidad</th>
                 <th>Cantidad</th>
                 <th>Editar</th>
-                <th>Eliminar</th>
             </tr>
             </thead>
             <tbody>
             <c:if test="${empty insumos}">
                 <tr>
-                    <td colspan="6" style="text-align: center;">No hay insumos registrados</td>
+                    <td colspan="5" style="text-align: center;">No hay insumos registrados</td>
                 </tr>
             </c:if>
             <c:forEach items="${insumos}" var="ins">
@@ -118,11 +117,6 @@
                     <td>${ins.stock}</td>
                     <td>
                         <a href="/insumos/editar/${ins.id}" class="btn btn-small">Editar</a>
-                    </td>
-                    <td>
-                        <a href="/insumos/eliminar/${ins.id}"
-                           class="btn btn-small"
-                           onclick="return confirm('¿Está seguro de eliminar este insumo?');">Eliminar</a>
                     </td>
                 </tr>
             </c:forEach>

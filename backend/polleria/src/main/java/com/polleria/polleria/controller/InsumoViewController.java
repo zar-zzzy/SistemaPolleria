@@ -5,7 +5,6 @@ import com.polleria.polleria.Insumo.InsumoService;
 import com.polleria.polleria.MovimientoInsumo.MovimientoInsumo;
 import com.polleria.polleria.MovimientoInsumo.MovimientoInsumoService;
 import com.polleria.polleria.MovimientoInsumo.TipoMovimiento;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,38 +33,37 @@ public class InsumoViewController {
     public String guardarInsumo(@ModelAttribute Insumo insumo) {
         boolean esNuevo = (insumo.getId() == null);
         double stockAnterior = 0.0;
-    
+
         if (!esNuevo) {
             Insumo insumoAnterior = insumoService.obtenerInsumoPorId(insumo.getId()).orElse(null);
-        if (insumoAnterior != null) {
-            stockAnterior = insumoAnterior.getStock();
+            if (insumoAnterior != null) {
+                stockAnterior = insumoAnterior.getStock();
+            }
         }
-    }
-    
-    Insumo insumoGuardado = insumoService.guardarInsumo(insumo);
-    
-    // Registrar movimiento
-    if (esNuevo) {
-        MovimientoInsumo movimiento = new MovimientoInsumo();
-        movimiento.setInsumo(insumoGuardado);
-        movimiento.setTipo(TipoMovimiento.ENTRADA);
-        movimiento.setCantidad(insumo.getStock());
-        movimiento.setMotivo("Stock inicial");
-        movimientoService.guardarMovimiento(movimiento);
-    } else {
-        double diferencia = insumo.getStock() - stockAnterior;
-        if (diferencia != 0) {
+
+        Insumo insumoGuardado = insumoService.guardarInsumo(insumo);
+
+        if (esNuevo) {
             MovimientoInsumo movimiento = new MovimientoInsumo();
             movimiento.setInsumo(insumoGuardado);
-            movimiento.setTipo(diferencia > 0 ? TipoMovimiento.ENTRADA : TipoMovimiento.SALIDA);
-            movimiento.setCantidad(Math.abs(diferencia));
-            movimiento.setMotivo(diferencia > 0 ? "Ajuste de inventario (entrada)" : "Ajuste de inventario (salida)");
+            movimiento.setTipo(TipoMovimiento.ENTRADA);
+            movimiento.setCantidad(insumo.getStock());
+            movimiento.setMotivo("Stock inicial");
             movimientoService.guardarMovimiento(movimiento);
+        } else {
+            double diferencia = insumo.getStock() - stockAnterior;
+            if (diferencia != 0) {
+                MovimientoInsumo movimiento = new MovimientoInsumo();
+                movimiento.setInsumo(insumoGuardado);
+                movimiento.setTipo(diferencia > 0 ? TipoMovimiento.ENTRADA : TipoMovimiento.SALIDA);
+                movimiento.setCantidad(Math.abs(diferencia));
+                movimiento.setMotivo(diferencia > 0 ? "Ajuste de inventario (entrada)" : "Ajuste de inventario (salida)");
+                movimientoService.guardarMovimiento(movimiento);
+            }
         }
+
+        return "redirect:/insumos";
     }
-    
-    return "redirect:/insumos";
-}
 
     @GetMapping("/editar/{id}")
     public String editarInsumo(@PathVariable Long id, Model model) {
@@ -76,4 +74,13 @@ public class InsumoViewController {
         model.addAttribute("movimientos", movimientoService.listarUltimos10());
         return "insumos";
     }
+
+    // --------------- 🔥 AQUI ESTABA LO QUE FALTABA 🔥 ---------------- //
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarInsumo(@PathVariable Long id) {
+        insumoService.eliminarInsumo(id);
+        return "redirect:/insumos";
+    }
+
 }
